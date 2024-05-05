@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Adduser">
+   <children>
+      <TextField fx:id="tfdni" layoutX="153.0" layoutY="66.0" />
+      <Label layoutX="78.0" layoutY="70.0" text="DNI" />
+      <Label layoutX="74.0" layoutY="122.0" text="Nombre" />
+      <TextField fx:id="tfnombre" layoutX="154.0" layoutY="118.0" />
+      <Label fx:id="Contraseña" layoutX="77.0" layoutY="172.0" text="Contraseña" />
+      <PasswordField fx:id="tdpassword" layoutX="154.0" layoutY="168.0" />
+      <Label fx:id="Contraseña1" layoutX="77.0" layoutY="232.0" text="Url Imagen" />
+      <Button fx:id="buscarUrl" layoutX="158.0" layoutY="228.0" mnemonicParsing="false" onAction="#buscarUrl" text="Buscar" />
+      <Label fx:id="Contraseña11" layoutX="78.0" layoutY="288.0" text="Privilegios" />
+      <Button layoutX="110.0" layoutY="328.0" mnemonicParsing="false" onAction="#Registrar" prefHeight="43.0" prefWidth="150.0" text="Registrar" />
+      <ChoiceBox fx:id="cbprivi" layoutX="158.0" layoutY="284.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

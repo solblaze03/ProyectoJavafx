@@ -5,4 +5,6 @@ module com.tpv {
 
     opens com.tpv to javafx.fxml;
     exports com.tpv;
+    exports com.tpv.clases;
+    opens com.tpv.clases to javafx.fxml;
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Principal extends Application {
 
     private static Stage stage;
-    private static Scene scene,scene1;
+    private static Scene scene,scene1,escenaaddusers;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -25,16 +25,38 @@ public class Principal extends Application {
 
         //scene1 = new Scene(loader1.load());
 
+        FXMLLoader loaderusers = new FXMLLoader(Principal.class.getResource("anyadirUsuarios.fxml"));
+        escenaaddusers = new Scene(loaderusers.load());
+
 
     }
+
+
+
+    /*
+    *  Aqui
+    *  Para
+    *  adelante
+    *  solo
+    *  Cambio
+    *  de
+    *  escenas
+     */
     public static void escenaManejoTpv(){
         try {
             FXMLLoader loader1 = new FXMLLoader(Principal.class.getResource("manejotpv.fxml"));
             scene1 = new Scene(loader1.load());
             stage.setScene(scene1);
+
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
+    }
+    public static void addusuario(){
+
+
+            stage.setScene(escenaaddusers);
+
     }
     public static void escenainicio(){
         stage.setScene(scene);

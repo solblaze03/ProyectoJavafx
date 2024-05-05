@@ -39,9 +39,10 @@ public class Controller {
 
             if(rs.next()){
                 user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"));
-                //System.out.println(user);
+                System.out.println(user);
                 user();
                 Principal.escenaManejoTpv();
+                System.out.println("Hola");
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error no se ha podido iniciar sesión");
