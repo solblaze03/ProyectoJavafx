@@ -1,6 +1,7 @@
 package com.tpv;
 
 import com.tpv.clases.Gestiontpv;
+import com.tpv.clases.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,13 +62,19 @@ public class Segundaventana implements Initializable {
         file = fc.showOpenDialog(stage);
         //copyimage(file.getAbsolutePath());
     }
-
+    private Usuario usuario;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        usuario =  Adduser.moduser;
+        tfdni.setText(usuario.getDNI());
+        tfnombre.setText(usuario.getNombre());
+
+        System.out.println(tfnombre.getText());
         ObservableList<String> listaa = FXCollections.observableArrayList();
         listaa.add("Admin");
         listaa.add("Usuario");
-        tfnombre.setText("perro");
+
+
 
         cbprivi.getItems().setAll(listaa);
     }

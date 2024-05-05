@@ -132,12 +132,15 @@ public class Adduser implements Initializable{
     }
     //Método que a partir del objeto seleccionado lo muestra en el formulario
 //También puede habilitar/deshabilitar botones en el formualrio
+
+    public static Usuario moduser;
     public void ponerUsuarioSeleccionado(){
         final Usuario usuario = getTablaUsuariosSeleccionado();
         numusuario = users.indexOf(usuario);
         if (usuario!=null){
             //tfnombre.setText(usuario.getNombre());
-            System.out.println(usuario.getNombre());
+
+            moduser = usuario;
             try {
                 Stage stage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
@@ -151,6 +154,7 @@ public class Adduser implements Initializable{
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
+
         } }
     //
     //
