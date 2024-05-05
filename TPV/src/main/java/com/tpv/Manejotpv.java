@@ -1,6 +1,7 @@
 package com.tpv;
 
 import com.tpv.clases.Usuario;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,5 +83,7 @@ public class Manejotpv implements Initializable {
         Principal.escenainicio();
 
     }
+
+
 
 }
