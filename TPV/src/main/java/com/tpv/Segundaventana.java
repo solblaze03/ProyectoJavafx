@@ -12,10 +12,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
@@ -48,16 +52,25 @@ public class Segundaventana implements Initializable {
 
     @FXML
     private TextField tfnombre;
+    @FXML
+    private ImageView imagen;
 
 
     @FXML
-    @Deprecated
     void buscarUrl(ActionEvent event) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Elige una imagen");
         Stage stage = (Stage) buscarUrl.getScene().getWindow();
         file = fc.showOpenDialog(stage);
+        System.out.println(file.getAbsolutePath());
+        try {
+            Image imagen1 = new Image(new FileInputStream(file.getAbsolutePath()));
+            imagen.setImage(imagen1);
+        }catch (FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
         //copyimage(file.getAbsolutePath());
+
     }
     private Usuario usuario;
     @Override
@@ -66,6 +79,16 @@ public class Segundaventana implements Initializable {
         if(usuario != null) {
             tfdni.setText(usuario.getDNI());
             tfnombre.setText(usuario.getNombre());
+            cbprivi.setValue(usuario.getPrivilegios());
+            if (usuario.getUrlImagen() != null) {
+                Image image = new Image(getClass().getResource(usuario.getUrlImagen()).toExternalForm());
+                imagen.setImage(image);
+            }
+
+            System.out.println(usuario.getUrlImagen());
+        }else{
+            tfdni.setText("");
+            tfnombre.setText("");
         }
 
             ObservableList<String> listaa = FXCollections.observableArrayList();
@@ -78,7 +101,6 @@ public class Segundaventana implements Initializable {
     }
     private File file;
     @FXML
-    @Deprecated
     void Registrar(ActionEvent event) {
         try {
             Gestiontpv gtpv = new Gestiontpv();

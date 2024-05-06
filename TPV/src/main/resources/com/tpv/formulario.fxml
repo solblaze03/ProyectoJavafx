@@ -5,9 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Segundaventana">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Segundaventana">
    <children>
       <TextField fx:id="tfdni" layoutX="153.0" layoutY="66.0" />
       <Label layoutX="78.0" layoutY="70.0" text="DNI" />
@@ -20,5 +21,6 @@
       <Label fx:id="Contraseña11" layoutX="78.0" layoutY="288.0" text="Privilegios" />
       <Button layoutX="110.0" layoutY="328.0" mnemonicParsing="false" onAction="#Registrar" prefHeight="43.0" prefWidth="150.0" text="Registrar" />
       <ChoiceBox fx:id="cbprivi" layoutX="158.0" layoutY="284.0" prefWidth="150.0" />
+      <ImageView fx:id="imagen" fitHeight="300.0" fitWidth="340.0" layoutX="337.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

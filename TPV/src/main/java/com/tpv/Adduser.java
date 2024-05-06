@@ -55,7 +55,7 @@ public class Adduser implements Initializable{
             Statement st = gtpv.Con().createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Superoot'");
             while (rs.next()){
-                users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios")));
+                users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen")));
             }
 
             DNI.setCellValueFactory(new PropertyValueFactory<>("DNI"));
@@ -76,11 +76,13 @@ public class Adduser implements Initializable{
     public void agregarUsuario(ActionEvent actionEvent) {
 
         try {
+            moduser=null;
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.initStyle(StageStyle.UTILITY);
+
             stage.show();
 
         }catch (IOException e){
