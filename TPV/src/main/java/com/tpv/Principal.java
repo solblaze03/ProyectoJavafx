@@ -25,7 +25,7 @@ public class Principal extends Application {
 
         //scene1 = new Scene(loader1.load());
 
-        FXMLLoader loaderusers = new FXMLLoader(Principal.class.getResource("anyadirUsuarios.fxml"));
+        FXMLLoader loaderusers = new FXMLLoader(Principal.class.getResource("anyadirusuarios.fxml"));
         escenaaddusers = new Scene(loaderusers.load());
 
 

@@ -18,10 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -66,17 +63,18 @@ public class Segundaventana implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usuario =  Adduser.moduser;
-        tfdni.setText(usuario.getDNI());
-        tfnombre.setText(usuario.getNombre());
+        if(usuario != null) {
+            tfdni.setText(usuario.getDNI());
+            tfnombre.setText(usuario.getNombre());
+        }
 
-        System.out.println(tfnombre.getText());
-        ObservableList<String> listaa = FXCollections.observableArrayList();
-        listaa.add("Admin");
-        listaa.add("Usuario");
+            ObservableList<String> listaa = FXCollections.observableArrayList();
+            listaa.add("Admin");
+            listaa.add("Usuario");
 
 
+            cbprivi.getItems().setAll(listaa);
 
-        cbprivi.getItems().setAll(listaa);
     }
     private File file;
     @FXML
@@ -93,6 +91,7 @@ public class Segundaventana implements Initializable {
                 ps.setString(4,null);
             }else{
                 String imagen = copyimage(file.getAbsolutePath());
+                System.out.println("copy : "+imagen);
                 ps.setString(4, "imguser/" + imagen);
             }
 
@@ -102,22 +101,34 @@ public class Segundaventana implements Initializable {
             System.out.println(e.getMessage());
         }
 
-
     }
     public String copyimage(String ruta) {
+        //copiar
         String rutaimagen[] = ruta.split("\\\\");
-        String imagen = rutaimagen[rutaimagen.length-1];
+        String url = "";
+        String osName = System.getProperty("os.name");
+        if (osName.startsWith("Windows")) {
+            String imagen[] = file.getAbsolutePath().split("\\\\");
+            url = imagen[imagen.length-1];
+
+
+        } else if (osName.startsWith("Linux")) {
+            String imagen[] = file.getAbsolutePath().split("/");
+            url = imagen[imagen.length-1];
+        }
+        System.out.println("Url: "+url);
+
         try {
             Path origen = Paths.get(ruta);
-            Path destino = Paths.get("./src/main/resources/com/tpv/imguser/"+imagen);
+            //System.out.println(url);
+            Path destino = Paths.get("./src/main/resources/com/tpv/imguser/"+url);
             Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
             System.out.println("copiado");
-            return imagen;
         }catch (IOException e){
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return null;
+        return url;
     }
 
 
