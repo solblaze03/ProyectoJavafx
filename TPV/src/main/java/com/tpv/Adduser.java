@@ -28,10 +28,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Adduser implements Initializable{
-    private ObservableList<Usuario> users = FXCollections.observableArrayList();
+    static ObservableList<Usuario> users = FXCollections.observableArrayList();
     @FXML
     private TableView <Usuario> tview;
     @FXML
@@ -41,21 +42,25 @@ public class Adduser implements Initializable{
     @FXML
     private TableColumn <Usuario,String> DNI;
 
-    private int numusuario;
+    static int numusuario;
     @FXML
     private Button cargaTabla;
+    @FXML
+    private Button Modificar;
+    @FXML
+    private Button agregarUsuario;
 
 
     @FXML
     public void buscar(){
         //System.out.println("Entra");
-        tview.getSelectionModel().getSelectedItems().addListener(selectorTablaUsuarios);
+
         Gestiontpv gtpv = new Gestiontpv();
         try {
             Statement st = gtpv.Con().createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Superoot'");
             while (rs.next()){
-                users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen")));
+                users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya")));
             }
 
             DNI.setCellValueFactory(new PropertyValueFactory<>("DNI"));
@@ -71,19 +76,20 @@ public class Adduser implements Initializable{
         }
     }
 
-
+static Stage stage;
     @FXML
     public void agregarUsuario(ActionEvent actionEvent) {
 
         try {
             moduser=null;
-            Stage stage = new Stage();
+            stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.initStyle(StageStyle.UTILITY);
-
             stage.show();
+
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -101,7 +107,8 @@ public class Adduser implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        tview.getSelectionModel().getSelectedItems().addListener(selectorTablaUsuarios);
+        buscar();
 
 
 
@@ -136,28 +143,54 @@ public class Adduser implements Initializable{
 //También puede habilitar/deshabilitar botones en el formualrio
 
     public static Usuario moduser;
+
+
+
     public void ponerUsuarioSeleccionado(){
         final Usuario usuario = getTablaUsuariosSeleccionado();
         numusuario = users.indexOf(usuario);
         if (usuario!=null){
-            //tfnombre.setText(usuario.getNombre());
+                moduser = usuario;
+                    agregarUsuario.setDisable(true);
+                    Modificar.setDisable(false);
+        }
 
-            moduser = usuario;
-            try {
-                Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.initStyle(StageStyle.UTILITY);
-                stage.show();
+    }
+
+    @FXML
+    public void Eliminar(ActionEvent actionEvent) {
+        Gestiontpv tpv = new Gestiontpv();
+        try {
+            String sql = "DELETE FROM `tpv`.`usuarios` WHERE (`dni` = ? );";
+            PreparedStatement ps = tpv.Con().prepareStatement(sql);
+            ps.setString(1,moduser.getDNI());
+            ps.executeUpdate();
+            users.clear();
+            buscar();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void Modificar(ActionEvent actionEvent) throws IOException {
+        stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.show();
+        agregarUsuario.setDisable(false);
+        Modificar.setDisable(true);
+    }
+
+    @FXML
+    public void Regresar(ActionEvent actionEvent) {
+        Principal.escenaManejoTpv();
+    }
 
 
-            }catch (IOException e){
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-
-        } }
     //
     //
 

@@ -54,6 +54,12 @@ public class Segundaventana implements Initializable {
     private TextField tfnombre;
     @FXML
     private ImageView imagen;
+    @FXML
+    private Label registroCorrecto;
+    @FXML
+    private Button Modificar;
+    @FXML
+    private Button registro;
 
 
     @FXML
@@ -75,11 +81,17 @@ public class Segundaventana implements Initializable {
     private Usuario usuario;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         usuario =  Adduser.moduser;
         if(usuario != null) {
             tfdni.setText(usuario.getDNI());
             tfnombre.setText(usuario.getNombre());
-            cbprivi.setValue(usuario.getPrivilegios());
+            tdpassword.setText(usuario.getPassword());
+            Modificar.setVisible(true);
+            registro.setVisible(false);
+
+
+
             if (usuario.getUrlImagen() != null) {
                 Image image = new Image(getClass().getResource(usuario.getUrlImagen()).toExternalForm());
                 imagen.setImage(image);
@@ -89,6 +101,8 @@ public class Segundaventana implements Initializable {
         }else{
             tfdni.setText("");
             tfnombre.setText("");
+            Modificar.setVisible(false);
+            registro.setVisible(true);
         }
 
             ObservableList<String> listaa = FXCollections.observableArrayList();
@@ -119,6 +133,8 @@ public class Segundaventana implements Initializable {
 
             ps.setString(5,(String )cbprivi.getValue());
             ps.executeUpdate();
+            registroCorrecto.setText("Registro agregado");
+            Adduser.stage.close();
         }catch (SQLException e ){
             System.out.println(e.getMessage());
         }
@@ -154,4 +170,38 @@ public class Segundaventana implements Initializable {
     }
 
 
+    @FXML
+    public void Modificar(ActionEvent actionEvent) {
+
+        ObservableList <Usuario> lista = Adduser.users;
+        //cbprivi.setValue(usuario.getPrivilegios());
+        String imagen = "";
+        if(file  == null){
+            imagen = usuario.getUrlImagen();
+        }else{
+            String  url  = copyimage(file.getAbsolutePath());
+            imagen = "imguser/" + url;
+        }
+        Gestiontpv gtpv = new Gestiontpv();
+        try {
+            String sql = "UPDATE `tpv`.`usuarios` SET `dni` = ? , `nombre` = ?, `contrasenya` = ?, `url_imagen` = ? , `privilegios` = ? WHERE (`dni` = ?);";
+            PreparedStatement ps = gtpv.Con().prepareStatement(sql);
+            ps.setString(1,tfdni.getText());
+            ps.setString(2,tfnombre.getText());
+            ps.setString(3,tdpassword.getText());
+            ps.setString(4,imagen);
+            ps.setString(5,cbprivi.getValue());
+            ps.setString(6,usuario.getDNI());
+            ps.executeUpdate();
+
+            System.out.println(cbprivi.getValue());
+            System.out.println(imagen);
+            lista.set(Adduser.numusuario, new Usuario(tfdni.getText(), tfnombre.getText(), cbprivi.getValue(), imagen, tdpassword.getText()));
+            Adduser.stage.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        // new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"))
+    }
 }

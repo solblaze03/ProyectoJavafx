@@ -3,6 +3,7 @@ package com.tpv;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 public class Principal extends Application {
 
     private static Stage stage;
-    private static Scene scene,scene1,escenaaddusers;
+    private static Scene scene,scene1,escenaaddusers,scenacategorias;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -53,13 +54,22 @@ public class Principal extends Application {
         }
     }
     public static void addusuario(){
-
-
             stage.setScene(escenaaddusers);
-
     }
     public static void escenainicio(){
         stage.setScene(scene);
+    }
+
+    public static void escenaCategorias() {
+        try {
+            FXMLLoader loadercategorias = new FXMLLoader(Principal.class.getResource("Anyadircategorias.fxml"));
+            scenacategorias = new Scene(loadercategorias.load());
+            stage.setScene(scenacategorias);
+        }catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
 

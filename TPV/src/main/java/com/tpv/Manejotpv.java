@@ -22,30 +22,16 @@ public class Manejotpv implements Initializable {
     @javafx.fxml.FXML
     private Button Ventas;
     @javafx.fxml.FXML
-    private Button adduser;
-    @javafx.fxml.FXML
     private ImageView imagenUser;
     @javafx.fxml.FXML
     private Button Salir;
     @javafx.fxml.FXML
     private Label nombre;
     @FXML
-    private Label Contraseña;
-    @FXML
-    private Label Contraseña1;
-    @FXML
-    private Label Contraseña11;
-    @FXML
-    private ComboBox<String> cbprivi;
-    @FXML
-    private PasswordField tdpassword;
-    @FXML
-    private TextField tfdni;
-    @FXML
-    private TextField tfnombre;
+    private Button agragarProductos;
 
 
-    @FXML
+    @Deprecated
     void buscar(ActionEvent event) {
 
     }
@@ -71,9 +57,10 @@ public class Manejotpv implements Initializable {
         }
 
         if("Usuario".equals(user.getPrivilegios()) ){
-            adduser.setDisable(true);
+            Agregar.setDisable(true);
+            agragarProductos.setDisable(true);
         }else{
-            adduser.setDisable(false);
+            agragarProductos.setDisable(false);
         }
 
     }
@@ -85,5 +72,8 @@ public class Manejotpv implements Initializable {
     }
 
 
-
+    @FXML
+    public void agregarCategorias(ActionEvent actionEvent) {
+        Principal.escenaCategorias();
+    }
 }

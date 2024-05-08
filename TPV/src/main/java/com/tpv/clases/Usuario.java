@@ -5,20 +5,28 @@ public class Usuario {
     private String nombre;
     private String privilegios;
     private String urlImagen;
+    private String password;
 
     public Usuario(String DNI, String nombre, String privilegios) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.privilegios = privilegios;
     }
+
     public Usuario(){
 
     }
-    public void añadirUsuario(String DNI, String nombre, String privilegios, String urlImagen){
+
+    public Usuario(String DNI, String nombre, String privilegios, String urlImagen,String password) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.privilegios = privilegios;
         this.urlImagen = urlImagen;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Usuario(String DNI, String nombre, String privilegios, String urlImagen) {
@@ -46,5 +54,13 @@ public class Usuario {
 
     public String getPrivilegios() {
         return this.privilegios;
+    }
+
+    public void añadirUsuario(String numdni, String nombre, String privilegios, String urlImagen,String password) {
+        this.DNI = numdni;
+        this.nombre = nombre;
+        this.privilegios = privilegios;
+        this.urlImagen = urlImagen;
+        this.password = password;
     }
 }

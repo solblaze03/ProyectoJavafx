@@ -38,7 +38,7 @@ public class Controller {
             ResultSet rs  = ps.executeQuery();
 
             if(rs.next()){
-                user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"));
+                user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya"));
                 System.out.println(user);
                 user();
                 Principal.escenaManejoTpv();

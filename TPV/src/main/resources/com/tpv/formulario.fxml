@@ -7,20 +7,27 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Segundaventana">
    <children>
-      <TextField fx:id="tfdni" layoutX="153.0" layoutY="66.0" />
-      <Label layoutX="78.0" layoutY="70.0" text="DNI" />
-      <Label layoutX="74.0" layoutY="122.0" text="Nombre" />
-      <TextField fx:id="tfnombre" layoutX="154.0" layoutY="118.0" />
-      <Label fx:id="Contraseña" layoutX="77.0" layoutY="172.0" text="Contraseña" />
-      <PasswordField fx:id="tdpassword" layoutX="154.0" layoutY="168.0" />
-      <Label fx:id="Contraseña1" layoutX="77.0" layoutY="232.0" text="Url Imagen" />
-      <Button fx:id="buscarUrl" layoutX="158.0" layoutY="228.0" mnemonicParsing="false" onAction="#buscarUrl" text="Buscar" />
-      <Label fx:id="Contraseña11" layoutX="78.0" layoutY="288.0" text="Privilegios" />
-      <Button layoutX="110.0" layoutY="328.0" mnemonicParsing="false" onAction="#Registrar" prefHeight="43.0" prefWidth="150.0" text="Registrar" />
-      <ChoiceBox fx:id="cbprivi" layoutX="158.0" layoutY="284.0" prefWidth="150.0" />
-      <ImageView fx:id="imagen" fitHeight="300.0" fitWidth="340.0" layoutX="337.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="tfdni" layoutX="153.0" layoutY="55.0" />
+      <Label layoutX="78.0" layoutY="59.0" text="DNI" />
+      <Label layoutX="74.0" layoutY="111.0" text="Nombre" />
+      <TextField fx:id="tfnombre" layoutX="154.0" layoutY="107.0" />
+      <Label fx:id="Contraseña" layoutX="77.0" layoutY="161.0" text="Contraseña" />
+      <PasswordField fx:id="tdpassword" layoutX="154.0" layoutY="157.0" />
+      <Label fx:id="Contraseña1" layoutX="77.0" layoutY="221.0" text="Url Imagen" />
+      <Button fx:id="buscarUrl" layoutX="158.0" layoutY="217.0" mnemonicParsing="false" onAction="#buscarUrl" text="Buscar" />
+      <Label fx:id="Contraseña11" layoutX="78.0" layoutY="277.0" text="Privilegios" />
+      <Button fx:id="registro" layoutX="110.0" layoutY="341.0" mnemonicParsing="false" onAction="#Registrar" prefHeight="43.0" prefWidth="150.0" text="Registrar" />
+      <ChoiceBox fx:id="cbprivi" layoutX="158.0" layoutY="273.0" prefWidth="150.0" />
+      <ImageView fx:id="imagen" fitHeight="300.0" fitWidth="340.0" layoutX="337.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="registroCorrecto" layoutX="104.0" layoutY="304.0" textFill="#5aff00">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="Modificar" layoutX="111.0" layoutY="341.0" mnemonicParsing="false" onAction="#Modificar" prefHeight="43.0" prefWidth="150.0" text="Modificar" />
    </children>
 </AnchorPane>
