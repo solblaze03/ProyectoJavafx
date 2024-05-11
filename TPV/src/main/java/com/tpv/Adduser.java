@@ -1,5 +1,6 @@
 package com.tpv;
 
+import com.tpv.clases.Conn;
 import com.tpv.clases.Gestiontpv;
 import com.tpv.clases.Usuario;
 import javafx.collections.FXCollections;
@@ -55,9 +56,10 @@ public class Adduser implements Initializable{
     public void buscar(){
         //System.out.println("Entra");
 
-        Gestiontpv gtpv = new Gestiontpv();
+
         try {
-            Statement st = gtpv.Con().createStatement();
+
+            Statement st = Conn.con().createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Superoot'");
             while (rs.next()){
                 users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya")));
@@ -151,8 +153,8 @@ static Stage stage;
         numusuario = users.indexOf(usuario);
         if (usuario!=null){
                 moduser = usuario;
-                    agregarUsuario.setDisable(true);
-                    Modificar.setDisable(false);
+                agregarUsuario.setDisable(true);
+                Modificar.setDisable(false);
         }
 
     }

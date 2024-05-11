@@ -1,5 +1,6 @@
 package com.tpv;
 
+import com.tpv.clases.Conn;
 import com.tpv.clases.Gestiontpv;
 import com.tpv.clases.Usuario;
 import javafx.collections.FXCollections;
@@ -7,11 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -28,28 +25,20 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class Segundaventana implements Initializable {
-
     @FXML
     private Label Contraseña;
-
     @FXML
     private Label Contraseña1;
-
     @FXML
     private Label Contraseña11;
-
     @FXML
     private Button buscarUrl;
-
     @FXML
     private ChoiceBox<String> cbprivi;
-
     @FXML
     private PasswordField tdpassword;
-
     @FXML
     private TextField tfdni;
-
     @FXML
     private TextField tfnombre;
     @FXML
@@ -90,14 +79,16 @@ public class Segundaventana implements Initializable {
             Modificar.setVisible(true);
             registro.setVisible(false);
 
-
-
             if (usuario.getUrlImagen() != null) {
-                Image image = new Image(getClass().getResource(usuario.getUrlImagen()).toExternalForm());
-                imagen.setImage(image);
+
+                    File file = new File("src/main/resources/com/tpv/"+usuario.getUrlImagen());
+                    Image image = new Image(file.toURI().toString());
+                    imagen.setImage(image);
+
+
             }
 
-            System.out.println(usuario.getUrlImagen());
+
         }else{
             tfdni.setText("");
             tfnombre.setText("");
@@ -163,8 +154,10 @@ public class Segundaventana implements Initializable {
             Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
             System.out.println("copiado");
         }catch (IOException e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("IOException");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
         }
         return url;
     }
@@ -172,6 +165,7 @@ public class Segundaventana implements Initializable {
 
     @FXML
     public void Modificar(ActionEvent actionEvent) {
+
 
         ObservableList <Usuario> lista = Adduser.users;
         //cbprivi.setValue(usuario.getPrivilegios());
@@ -182,10 +176,10 @@ public class Segundaventana implements Initializable {
             String  url  = copyimage(file.getAbsolutePath());
             imagen = "imguser/" + url;
         }
-        Gestiontpv gtpv = new Gestiontpv();
+
         try {
             String sql = "UPDATE `tpv`.`usuarios` SET `dni` = ? , `nombre` = ?, `contrasenya` = ?, `url_imagen` = ? , `privilegios` = ? WHERE (`dni` = ?);";
-            PreparedStatement ps = gtpv.Con().prepareStatement(sql);
+            PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setString(1,tfdni.getText());
             ps.setString(2,tfnombre.getText());
             ps.setString(3,tdpassword.getText());
@@ -198,6 +192,10 @@ public class Segundaventana implements Initializable {
             System.out.println(imagen);
             lista.set(Adduser.numusuario, new Usuario(tfdni.getText(), tfnombre.getText(), cbprivi.getValue(), imagen, tdpassword.getText()));
             Adduser.stage.close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Modificación exitosa");
+            alert.setHeaderText("Se ha modificado correctamente el registro en la base de datos.");
+            alert.show();
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }

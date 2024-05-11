@@ -28,8 +28,6 @@ public class Principal extends Application {
 
         FXMLLoader loaderusers = new FXMLLoader(Principal.class.getResource("anyadirusuarios.fxml"));
         escenaaddusers = new Scene(loaderusers.load());
-
-
     }
 
 
@@ -71,9 +69,6 @@ public class Principal extends Application {
             alert.show();
         }
     }
-
-
-
     public static void main(String[] args) {
         launch();
     }
