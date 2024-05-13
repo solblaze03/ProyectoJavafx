@@ -1,0 +1,51 @@
+#dni{
+    -fx-prompt-text-fill: white;
+    -fx-text-fill:white;
+    -fx-border-color:  transparent transparent blue transparent;
+    -fx-font-size:18;
+    -fx-border-width:1;
+}
+#dni:focused{
+    -fx-border-width : 3;
+
+}
+#password{
+    -fx-prompt-text-fill: white;
+    -fx-text-fill:white;
+    -fx-border-color:  transparent transparent blue transparent;
+    -fx-font-size:18;
+    -fx-border-width:1;
+}
+#password:hover{
+    -fx-border-color:transparent transparent white transparent;
+}
+#dni:hover{
+    -fx-border-color:transparent transparent white transparent;
+}
+#password:focused{
+    -fx-border-width : 3;
+
+}
+#Inicio{
+    -fx-background-color:transparent;
+    -fx-border-color:blue;
+    -fx-border-radius:20;
+    -fx-background-radius:20;
+
+}
+#Inicio:hover{
+
+
+     -fx-border-color:white;
+     -fx-border-width:2;
+
+}
+#Inicio:pressed{
+
+
+     -fx-border-color:white;
+     -fx-background-color:blue;
+
+     -fx-border-width:2;
+
+}

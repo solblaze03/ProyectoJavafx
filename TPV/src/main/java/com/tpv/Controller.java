@@ -4,11 +4,18 @@ import com.tpv.clases.Gestiontpv;
 import com.tpv.clases.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 
+import java.awt.*;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -32,7 +39,7 @@ public class Controller {
         String numdni = dni.getText();
 
         try {
-            PreparedStatement ps = gtpv.Con().prepareStatement("SELECT * FROM usuarios where dni = ? and contrasenya = ? ");
+            PreparedStatement ps = gtpv.Con().prepareStatement("SELECT * FROM usuarios where dni = ? and contrasenya = ? ;");
             ps.setString(1,numdni);
             ps.setString(2,pass);
             ResultSet rs  = ps.executeQuery();
@@ -47,7 +54,7 @@ public class Controller {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error no se ha podido iniciar sesión");
                 alert.setHeaderText("Error");
-                alert.show();;
+                alert.show();
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());
@@ -55,4 +62,6 @@ public class Controller {
 
 
     }
+
+
 }

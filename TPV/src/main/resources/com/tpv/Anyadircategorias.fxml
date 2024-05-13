@@ -22,11 +22,11 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="agregarCategoria" layoutX="18.0" layoutY="50.0" mnemonicParsing="false" onAction="#agregarCategoria" text="Agregar" />
-      <Button fx:id="cargaTabla" layoutX="81.0" layoutY="50.0" mnemonicParsing="false" onAction="#cargarTabla" text="Actualizar" />
-      <Button fx:id="del" layoutX="221.0" layoutY="50.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
-      <Button fx:id="btModificar" layoutX="152.0" layoutY="50.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
-      <Button fx:id="regresar" layoutX="282.0" layoutY="50.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
+      <Button fx:id="agregarCategoria" layoutX="9.0" layoutY="50.0" mnemonicParsing="false" onAction="#agregarCategoria" text="Agregar" />
+      <Button fx:id="cargaTabla" layoutX="72.0" layoutY="50.0" mnemonicParsing="false" onAction="#cargarTabla" text="Actualizar" />
+      <Button fx:id="del" layoutX="223.0" layoutY="50.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
+      <Button fx:id="btModificar" layoutX="149.0" layoutY="50.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
+      <Button fx:id="regresar" layoutX="289.0" layoutY="50.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
       <ImageView fx:id="Imagen" fitHeight="182.0" fitWidth="268.0" layoutX="369.0" layoutY="90.0" pickOnBounds="true" />
       <TextField fx:id="tfnombre" layoutX="488.0" layoutY="340.0" />
       <Label layoutX="350.0" layoutY="343.0" text="Nombre Categoria:">

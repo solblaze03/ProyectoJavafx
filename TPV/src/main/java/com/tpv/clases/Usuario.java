@@ -63,4 +63,5 @@ public class Usuario {
         this.urlImagen = urlImagen;
         this.password = password;
     }
+
 }

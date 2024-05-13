@@ -11,9 +11,9 @@
    <children>
       <TableView fx:id="tview" layoutY="86.0" prefHeight="434.0" prefWidth="677.0">
         <columns>
-          <TableColumn fx:id="usuario" prefWidth="131.199951171875" text="Usuario" />
-          <TableColumn fx:id="privilegios" prefWidth="139.20004272460938" text="Privilegios" />
-            <TableColumn fx:id="DNI" prefWidth="136.00006103515625" text="DNI" />
+          <TableColumn fx:id="usuario" prefWidth="214.0" text="Usuario" />
+          <TableColumn fx:id="privilegios" prefWidth="255.0" text="Privilegios" />
+            <TableColumn fx:id="DNI" prefWidth="207.0" text="DNI" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="147.0" layoutY="14.0" prefHeight="18.0" prefWidth="384.0" text="Usuarios agregados">
@@ -23,7 +23,7 @@
       </Label>
       <Button fx:id="agregarUsuario" layoutX="22.0" layoutY="50.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar" />
       <Button fx:id="cargaTabla" layoutX="94.0" layoutY="50.0" mnemonicParsing="false" onAction="#cargarTabla" text="Actualizar" />
-      <Button layoutX="251.0" layoutY="50.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
+      <Button fx:id="eliminar" layoutX="251.0" layoutY="50.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
       <Button fx:id="Modificar" layoutX="172.0" layoutY="50.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
       <Button layoutX="322.0" layoutY="50.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
    </children>

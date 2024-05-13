@@ -42,7 +42,6 @@ public class Adduser implements Initializable{
     private TableColumn <Usuario,String> usuario;
     @FXML
     private TableColumn <Usuario,String> DNI;
-
     static int numusuario;
     @FXML
     private Button cargaTabla;
@@ -50,6 +49,8 @@ public class Adduser implements Initializable{
     private Button Modificar;
     @FXML
     private Button agregarUsuario;
+    @FXML
+    private Button eliminar;
 
 
     @FXML
@@ -60,7 +61,7 @@ public class Adduser implements Initializable{
         try {
 
             Statement st = Conn.con().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Superoot'");
+            ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Super Administrador'");
             while (rs.next()){
                 users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya")));
             }
@@ -85,12 +86,17 @@ static Stage stage;
         try {
             moduser=null;
             stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("formulario.fxml"));
-            Scene scene = new Scene(root);
+            FXMLLoader loader5 = new FXMLLoader(getClass().getResource("formulario.fxml"));
+
+            Scene scene = new Scene(loader5.load());
             stage.setScene(scene);
             stage.setResizable(false);
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
+
+
+
+
 
 
         }catch (IOException e){
@@ -110,21 +116,15 @@ static Stage stage;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tview.getSelectionModel().getSelectedItems().addListener(selectorTablaUsuarios);
+        users.clear();
         buscar();
-
-
+        Modificar.setDisable(true);
+        eliminar.setDisable(true);
 
         // "Admin","Usuario"
+
     }
-
-
-
-
-
-    //
-
-    //
-
+    
     private final ListChangeListener<Usuario> selectorTablaUsuarios = new ListChangeListener<Usuario>(){
         @Override
         public void onChanged (ListChangeListener.Change<? extends Usuario> c){
@@ -155,6 +155,7 @@ static Stage stage;
                 moduser = usuario;
                 agregarUsuario.setDisable(true);
                 Modificar.setDisable(false);
+                eliminar.setDisable(false);
         }
 
     }

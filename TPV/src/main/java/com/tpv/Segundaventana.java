@@ -51,6 +51,8 @@ public class Segundaventana implements Initializable {
     private Button registro;
 
 
+
+
     @FXML
     void buscarUrl(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -103,6 +105,7 @@ public class Segundaventana implements Initializable {
 
             cbprivi.getItems().setAll(listaa);
 
+
     }
     private File file;
     @FXML
@@ -125,6 +128,12 @@ public class Segundaventana implements Initializable {
             ps.setString(5,(String )cbprivi.getValue());
             ps.executeUpdate();
             registroCorrecto.setText("Registro agregado");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Confirmación");
+            alert.setHeaderText("Se ha registrado correctamente el usuario "+tfnombre.getText());
+            alert.show();
+            Adduser.users.clear();
+
             Adduser.stage.close();
         }catch (SQLException e ){
             System.out.println(e.getMessage());

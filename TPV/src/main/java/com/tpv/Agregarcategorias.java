@@ -69,13 +69,15 @@ public class Agregarcategorias implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar registro");
             alert.setHeaderText("Eliminar registro "+categoriaseleccionada.getNombre());
-            alert.setContentText("¿Estas seguro de eliminar el registro "+categoriaseleccionada.getNombre()+ "?");
+            alert.setContentText("¿Estas seguro de eliminar el registro "+categoriaseleccionada.getNombre()+ "?\nLos productos que estan asociados a la categoria "+categoriaseleccionada.getNombre()+" se quedaran sin categoria.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()){
 
                 if(result.get() == ButtonType.OK){
+                    System.out.println("eliminar");
                     String sql = "DELETE FROM `categoria` WHERE (`id_categoria` = ? );";
                     PreparedStatement ps = Conn.con().prepareStatement(sql);
+                    System.out.println(categoriaseleccionada.getCategoria());
                     ps.setString(1,categoriaseleccionada.getCategoria());
                     ps.executeUpdate();
                     lista.clear();
@@ -100,6 +102,7 @@ public class Agregarcategorias implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("SQLException");
             alert.setContentText(e.getMessage());
+            alert.show();
         }
     }
 
@@ -161,14 +164,17 @@ public class Agregarcategorias implements Initializable {
             agregarCategoria.setDisable(false);
             cargaTabla.setDisable(false);
             tview.setDisable(false);
-            del.setDisable(false);
+
+                del.setDisable(false);
+
+
             modificar = false;
             btModificar.setText("Modificar");
             Habilitar(true);
             Imagen.setImage(null);
             tfidcategoria.clear();
             tfnombre.clear();
-            tview.setDisable(false);
+
         }
     }
 
@@ -191,9 +197,9 @@ public class Agregarcategorias implements Initializable {
     @javafx.fxml.FXML
     public void Agregar(ActionEvent actionEvent) {
 
-            System.out.println("Lista : " + tfnombre.getText() + " " + tfidcategoria.getText() + " " + file.getAbsolutePath());
-            Habilitar(true);
-            tview.setDisable(false);
+            //System.out.println("Lista : " + tfnombre.getText() + " " + tfidcategoria.getText() + " " + file.getAbsolutePath());
+
+
             try {
 
                 String sql = "INSERT INTO categoria (id_categoria,nombre,urlImagen) values(?,?,?)";
@@ -207,12 +213,17 @@ public class Agregarcategorias implements Initializable {
                     ps.setString(3, "Categorias/" + url);
                 }
                 ps.executeUpdate();
+                lista.clear();
+                cargar();
                 file = null;
                 imagen1 = null;
                 Imagen.setImage(null);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Agregar usuarios.");
+                alert.setHeaderText("Se ha añadido la categoria "+tfnombre.getText() +" correctamente");
+                alert.show();
                 tfidcategoria.setText("");
                 tfnombre.setText("");
-                agregarCategoria.setText("Salir");
 
                 saliragregar = true;
             } catch (SQLException e) {
@@ -284,6 +295,7 @@ public class Agregarcategorias implements Initializable {
         modificarregistro.setVisible(false);
         cargar();
         btModificar.setDisable(true);
+        del.setDisable(true);
     }
 
     private ObservableList<Categoria> lista = FXCollections.observableArrayList();
@@ -318,7 +330,8 @@ public class Agregarcategorias implements Initializable {
             del.setDisable(true);
             saliragregar = true;
         }else {
-            btModificar.setDisable(false);
+            agregarCategoria.setText("Agregar");
+
             lbcategorias.setText("Presiona un a fila columna de la tabla para modificarla.");
             cargaTabla.setDisable(false);
             tview.setDisable(false);
@@ -326,13 +339,16 @@ public class Agregarcategorias implements Initializable {
             tfidcategoria.setText("");
             tfnombre.setText("");
             Habilitar(true);
-            del.setDisable(false);
+
+            if(categoriaseleccionada != null) {
+                del.setDisable(false);
+                btModificar.setDisable(false);
+            }
             agregarCategoria.setText("Agregar");
             saliragregar = false;
             cargaTabla.setDisable(false);
-            btModificar.setDisable(false);
 
-            del.setDisable(false);
+
             saliragregar = false;
         }
     }
@@ -369,6 +385,7 @@ public class Agregarcategorias implements Initializable {
             categoriaseleccionada = categoria;
             System.out.println(categoriaseleccionada.getNombre());
             btModificar.setDisable(false);
+            del.setDisable(false);
 
 
         }
@@ -388,17 +405,14 @@ public class Agregarcategorias implements Initializable {
             if (rs.next()){
                 imagenantigua = rs.getString("urlImagen");
             }
-
             String sql = "UPDATE `categoria` SET `id_categoria` = ?, `nombre` = ?, `urlImagen` = ? WHERE (`id_categoria` = ? );";
             PreparedStatement psupdate = Conn.con().prepareStatement(sql);
             psupdate.setString(1,tfidcategoria.getText());
             if(file != null) {
                 String imagenseleccionada = copyimage(file.getAbsolutePath());
                 psupdate.setString(3, "Categorias/"+imagenseleccionada);
-
             }else{
                 psupdate.setString(3, imagenantigua);
-
             }
             psupdate.setString(2,tfnombre.getText());
 

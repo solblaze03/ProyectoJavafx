@@ -38,6 +38,7 @@ public class Manejotpv implements Initializable {
 
     @javafx.fxml.FXML
     public void agregarProductos(ActionEvent actionEvent) {
+        Principal.escenaproductos();
     }
 
     @javafx.fxml.FXML
@@ -62,6 +63,7 @@ public class Manejotpv implements Initializable {
         }else{
             agragarProductos.setDisable(false);
         }
+
 
     }
 
