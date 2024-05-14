@@ -67,9 +67,9 @@ public class Agregarproductos implements Initializable {
     @javafx.fxml.FXML
     private TextField tfdcto;
     @javafx.fxml.FXML
-    private ChoiceBox <String> cbiva;
+    private ComboBox <String> cbiva;
     @javafx.fxml.FXML
-    private ChoiceBox <String> cbcategoria;
+    private ComboBox <String> cbcategoria;
     @javafx.fxml.FXML
     private ImageView image;
     @javafx.fxml.FXML
@@ -270,8 +270,9 @@ public class Agregarproductos implements Initializable {
                 alert.setHeaderText("Producto "+tfnombres.getText()+" registrado");
                 ImageView imageview = new ImageView();
                 File f = new File("src/main/resources/com/tpv/codeqr/"+tfbarras.getText()+".png");
-                Image image = new Image(f.toURI().toString());
-                imageview.setImage(image);
+                Image imagen = new Image(f.toURI().toString());
+                image.setImage(imagen);
+                imageview.setImage(imagen);
                 ButtonType descargarqr = new ButtonType("Guardar QR");
                 ButtonType salir = new ButtonType("salir");
                 alert.getButtonTypes().setAll(descargarqr,salir);

@@ -1,5 +1,6 @@
 package com.tpv;
 
+import com.tpv.clases.Conn;
 import com.tpv.clases.Gestiontpv;
 import com.tpv.clases.Usuario;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 
 import java.awt.*;
 import java.net.URL;
@@ -27,6 +29,8 @@ public class Controller {
     @FXML
     private TextField dni;
     static Usuario user = new Usuario();
+    @FXML
+    private Pane panel;
 
     public static Usuario user(){
         return user;
@@ -34,21 +38,22 @@ public class Controller {
 
     @FXML
     public void inicioSesion(ActionEvent actionEvent) {
-        Gestiontpv gtpv = new Gestiontpv();
+
         String pass = password.getText();
         String numdni = dni.getText();
 
         try {
-            PreparedStatement ps = gtpv.Con().prepareStatement("SELECT * FROM usuarios where dni = ? and contrasenya = ? ;");
+            PreparedStatement ps = Conn.con().prepareStatement("SELECT * FROM usuarios where dni = ? and contrasenya = ? ;");
             ps.setString(1,numdni);
             ps.setString(2,pass);
             ResultSet rs  = ps.executeQuery();
-
             if(rs.next()){
                 user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya"));
                 System.out.println(user);
                 user();
                 Principal.escenaManejoTpv();
+                dni.setText("");
+                password.setText("");
                 System.out.println("Hola");
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);

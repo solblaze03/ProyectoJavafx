@@ -80,13 +80,14 @@ public class Adduser implements Initializable{
     }
 
 static Stage stage;
+    static FXMLLoader loader5;
     @FXML
     public void agregarUsuario(ActionEvent actionEvent) {
 
         try {
             moduser=null;
             stage = new Stage();
-            FXMLLoader loader5 = new FXMLLoader(getClass().getResource("formulario.fxml"));
+            loader5 = new FXMLLoader(getClass().getResource("formulario.fxml"));
 
             Scene scene = new Scene(loader5.load());
             stage.setScene(scene);

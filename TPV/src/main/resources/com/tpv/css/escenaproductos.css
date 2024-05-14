@@ -1,4 +1,70 @@
+.table-view{
+    -fx-background-color:#1f1f1f;
+}
 .table-cell {
     -fx-alignment: CENTER;
     -fx-font-size:15;
+    -fx-background-color:#1f1f1f;
+    -fx-text-fill:white;
+
+}
+.table-view .table-row-cell:filled:selected,
+.table-view .table-row-cell:filled:selected:focused,
+.table-view .table-row-cell:selected {
+    -fx-border-color:blue transparent blue transparent ;
+    -fx-background-color:white;
+}
+
+.button{
+    -fx-background-color:#1f1f1f;
+    -fx-text-fill:white;
+    -fx-border-color:blue;
+    -fx-border-radius:18;
+    -fx-background-radius:18;
+    -fx-border-width:2;
+}
+.button:hover{
+    -fx-border-color:white;
+}
+.button:pressed{
+    -fx-background-color:blue;
+    -fx-border-color:white;
+}
+.text-field{
+    -fx-text-fill:white;
+    -fx-border-color:  transparent transparent blue transparent;
+    -fx-border-width:3;
+}
+.text-field:focused{
+
+    -fx-border-color:  transparent transparent blue transparent;
+    -fx-border-width:5;
+}
+.text-field:hover{
+
+    -fx-border-color:  transparent transparent white transparent;
+ }
+
+.combo-box{
+     -fx-background-color:#1f1f1f;
+     -fx-border-color:  transparent transparent blue transparent;
+     -fx-border-width:3;
+
+
+}
+.combo-box:hover{
+     -fx-background-color:#1f1f1f;
+     -fx-border-color:  transparent transparent white transparent;
+     -fx-border-width:3;
+
+}
+.combo-box:focused{
+     -fx-background-color:#1f1f1f;
+     -fx-border-color:  transparent transparent blue transparent;
+     -fx-border-width:6;
+
+}
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color:#1f1f1f;
 }

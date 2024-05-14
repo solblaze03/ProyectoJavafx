@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +30,10 @@ public class Manejotpv implements Initializable {
     private Label nombre;
     @FXML
     private Button agragarProductos;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private Label welcome;
 
 
     @Deprecated
@@ -56,7 +61,7 @@ public class Manejotpv implements Initializable {
             Image image = new Image(getClass().getResource(user.getUrlImagen()).toExternalForm());
             imagenUser.setImage(image);
         }
-
+        welcome.setText("Bienvenido de nuevo "+user.getNombre());
         if("Usuario".equals(user.getPrivilegios()) ){
             Agregar.setDisable(true);
             agragarProductos.setDisable(true);
@@ -64,6 +69,7 @@ public class Manejotpv implements Initializable {
             agragarProductos.setDisable(false);
         }
 
+        pane.getStylesheets().add(getClass().getResource("css/manejotpv.css").toExternalForm());
 
     }
 

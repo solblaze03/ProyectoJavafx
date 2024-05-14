@@ -2,29 +2,76 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Manejotpv">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="1013.0" stylesheets="@css/manejotpv.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Manejotpv">
    <children>
-      <ImageView fx:id="imagenUser" fitHeight="173.0" fitWidth="174.0" layoutX="35.0" layoutY="14.0" pickOnBounds="true">
+      <Pane layoutY="-7.0" opacity="0.94" prefHeight="612.0" prefWidth="1013.0" style="-fx-background-color: #1f1f1f;" stylesheets="@css/manejotpv.css">
+         <children>
+            <ImageView fitHeight="285.0" fitWidth="420.0" layoutX="54.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Integramos-sistemas-TPV-con-tu-programa-de-gestión-e1593068840536.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="110.0" layoutY="61.0" textFill="WHITE" />
+            <Label fx:id="welcome" alignment="CENTER" layoutX="68.0" layoutY="50.0" prefHeight="150.0" prefWidth="478.0" text="Bienvenido de nuevo akkfkfsdfdfs" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="678.0" layoutY="16.0" prefHeight="198.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 3;">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="29.31" radius="12.0775" spread="0.12">
+               <color>
+                  <Color green="0.4000000059604645" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect></Pane>
+      <ImageView fx:id="imagenUser" fitHeight="173.0" fitWidth="174.0" layoutX="691.0" layoutY="29.0" pickOnBounds="true">
          <image>
             <Image url="@default.png" />
          </image></ImageView>
-      <Label fx:id="nombre" layoutX="219.0" layoutY="56.0" prefHeight="18.0" prefWidth="290.0" text="gfdfgdgdfg">
+      <Label fx:id="nombre" layoutX="608.0" layoutY="225.0" prefHeight="35.0" prefWidth="372.0" text="gfdfgdgdfg" textFill="WHITE">
          <font>
             <Font size="24.0" />
-         </font></Label>
-      <Label fx:id="privileges" layoutX="219.0" layoutY="115.0" prefHeight="18.0" prefWidth="290.0" text="fgxdgfgfdg">
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Label>
+      <Label fx:id="privileges" layoutX="608.0" layoutY="277.0" prefHeight="34.0" prefWidth="372.0" text="fgxdgfgfdg" textFill="WHITE">
          <font>
             <Font size="23.0" />
-         </font></Label>
-      <Button fx:id="agragarProductos" layoutX="27.0" layoutY="200.0" mnemonicParsing="false" onAction="#agregarProductos" prefHeight="58.0" prefWidth="173.0" text="Agregar productos" />
-      <Button fx:id="Agregar" layoutX="27.0" layoutY="269.0" mnemonicParsing="false" onAction="#AgregarUsers" prefHeight="66.0" prefWidth="174.0" text="Agregar usuarios" />
-      <Button fx:id="Ventas" layoutX="27.0" layoutY="348.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="174.0" text="Ver ventas" />
-      <Button fx:id="Salir" layoutX="27.0" layoutY="458.0" mnemonicParsing="false" onAction="#Salir" prefHeight="116.0" prefWidth="174.0" text="Salir Sesion" />
-      <Button layoutX="219.0" layoutY="200.0" mnemonicParsing="false" onAction="#agregarCategorias" prefHeight="58.0" prefWidth="173.0" text="Agregar Categorias" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Label>
+      <Button fx:id="agragarProductos" layoutX="589.0" layoutY="326.0" mnemonicParsing="false" onAction="#agregarProductos" prefHeight="70.0" prefWidth="180.0" text="Agregar productos" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Button fx:id="Agregar" layoutX="590.0" layoutY="413.0" mnemonicParsing="false" onAction="#AgregarUsers" prefHeight="70.0" prefWidth="180.0" text="Agregar usuarios" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Button fx:id="Ventas" layoutX="792.0" layoutY="413.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="180.0" text="Ver ventas" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Button fx:id="Salir" layoutX="694.0" layoutY="506.0" mnemonicParsing="false" onAction="#Salir" prefHeight="70.0" prefWidth="180.0" text="Salir Sesion" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Button layoutX="793.0" layoutY="326.0" mnemonicParsing="false" onAction="#agregarCategorias" prefHeight="70.0" prefWidth="180.0" text="Agregar Categorias" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -132,7 +133,7 @@ public class Segundaventana implements Initializable {
             alert.setTitle("Confirmación");
             alert.setHeaderText("Se ha registrado correctamente el usuario "+tfnombre.getText());
             alert.show();
-            Adduser.users.clear();
+
 
             Adduser.stage.close();
         }catch (SQLException e ){
