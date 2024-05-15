@@ -1,4 +1,4 @@
-package com.tpv.clases;
+package com.tpvprincipal.clases;
 
 public class Usuario {
     private String DNI;
@@ -17,7 +17,7 @@ public class Usuario {
 
     }
 
-    public Usuario(String DNI, String nombre, String privilegios, String urlImagen, String password) {
+    public Usuario(String DNI, String nombre, String privilegios, String urlImagen,String password) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.privilegios = privilegios;
