@@ -61,6 +61,28 @@ public class controllerpantalla implements Initializable {
     private TableView tviewpequeño;
     @FXML
     private Label totalcajero;
+    @FXML
+    private Button tvcoma;
+    @FXML
+    private TextField tfvuelta;
+    @FXML
+    private Button tvdel;
+    @FXML
+    private Button tvclear;
+    @FXML
+    private Button tv0;
+    @FXML
+    private Button tv3;
+    @FXML
+    private Button tv2;
+    @FXML
+    private Button tv4;
+    @FXML
+    private Button tv7;
+    @FXML
+    private Button tv9;
+    @FXML
+    private Button tv8;
 
 
     public void cargartabla(String codigo){
@@ -314,6 +336,7 @@ public class controllerpantalla implements Initializable {
         if(cadena.length() != 0){
             cadena = cadena.substring(0,cadena.length()-1);
             tfbuscar.setText(cadena);
+
         }
         list.clear();
         cargartabla(tfbuscar.getText());
@@ -677,5 +700,109 @@ public class controllerpantalla implements Initializable {
         cargartabla(tfbuscar.getText());
     }
 
+    private String cadenapq = "";
+    private int cont = 0;
+    public void agregarNumerostfVuelta(String num){
 
+
+            if(punto && cont < 2){
+                System.out.println("arriba");
+                cadenapq += num;
+                tfvuelta.setText(cadenapq);
+                cont++;
+            }else if(cont <2){
+                System.out.println("abajo");
+
+                cadenapq += num;
+                tfvuelta.setText(cadenapq);
+            }
+
+
+
+    }
+
+    @FXML
+    public void tvimprimir(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void cobrar(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void tv1(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("1");
+
+    }
+
+    @FXML
+    public void tv3(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("3");
+    }
+
+    @FXML
+    public void tv2(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("2");
+    }
+
+    @FXML
+    public void tv5(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("5");
+    }
+
+    @FXML
+    public void tv4(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("4");
+    }
+
+    @FXML
+    public void tv7(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("7");
+    }
+
+    @FXML
+    public void tv6(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("6");
+    }
+
+    @FXML
+    public void tv9(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("9");
+    }
+
+    @FXML
+    public void tv8(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("8");
+    }
+    boolean punto = false;
+    @FXML
+    public void tvcoma(ActionEvent actionEvent) {
+        if(!cadenapq.contains(".") && cadenapq.length() != 0) {
+            agregarNumerostfVuelta(".");
+            punto = true;
+        }
+    }
+
+    @FXML
+    public void tvdel(ActionEvent actionEvent) {
+        if(tfvuelta.getText().length() != 0){
+            String caracter = cadenapq.substring(tfvuelta.getText().length()-1,tfvuelta.getText().length());
+            cadenapq = cadenapq.substring(0,tfvuelta.getText().length()-1);
+            tfvuelta.setText(cadenapq);
+
+            if (caracter.equals(".")){
+                punto = false;
+                cont = 0;
+            }
+            if(punto){
+                cont--;
+            }
+        }
+    }
+
+    @FXML
+    public void tvclear(ActionEvent actionEvent) {
+        cadenapq = "";
+        tfvuelta.setText("");
+    }
 }
