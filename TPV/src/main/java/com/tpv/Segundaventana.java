@@ -112,9 +112,9 @@ public class Segundaventana implements Initializable {
     @FXML
     void Registrar(ActionEvent event) {
         try {
-            Gestiontpv gtpv = new Gestiontpv();
-            String sql = "INSERT INTO `tpv`.`usuarios` (`dni`, `nombre`, `contrasenya`, `sesion_abierta`, `fecha_creacion`, `url_imagen`, `privilegios`) VALUES (?, ?, ?, 0, NOW(), ?, ?);";
-            PreparedStatement ps = gtpv.Con().prepareStatement(sql);
+
+            String sql = "INSERT INTO usuarios (dni, nombre, contrasenya, sesion_abierta, fecha_creacion, url_imagen, privilegios) VALUES (?, ?, ?, 0, NOW(), ?, ?);";
+            PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setString(1,tfdni.getText());
             ps.setString(2,tfnombre.getText());
             ps.setString(3,tdpassword.getText());
@@ -162,7 +162,7 @@ public class Segundaventana implements Initializable {
             //System.out.println(url);
             Path destino = Paths.get("./src/main/resources/com/tpv/imguser/"+url);
             Files.copy(origen, destino, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("copiado");
+
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("IOException");
@@ -188,7 +188,7 @@ public class Segundaventana implements Initializable {
         }
 
         try {
-            String sql = "UPDATE `tpv`.`usuarios` SET `dni` = ? , `nombre` = ?, `contrasenya` = ?, `url_imagen` = ? , `privilegios` = ? WHERE (`dni` = ?);";
+            String sql = "UPDATE usuarios SET dni = ? , nombre = ?, contrasenya = ?, url_imagen = ? , privilegios = ? WHERE (dni = ?);";
             PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setString(1,tfdni.getText());
             ps.setString(2,tfnombre.getText());
@@ -198,8 +198,6 @@ public class Segundaventana implements Initializable {
             ps.setString(6,usuario.getDNI());
             ps.executeUpdate();
 
-            System.out.println(cbprivi.getValue());
-            System.out.println(imagen);
             lista.set(Adduser.numusuario, new Usuario(tfdni.getText(), tfnombre.getText(), cbprivi.getValue(), imagen, tdpassword.getText()));
             Adduser.stage.close();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

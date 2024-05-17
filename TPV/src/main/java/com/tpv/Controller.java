@@ -41,7 +41,6 @@ public class Controller {
 
         String pass = password.getText();
         String numdni = dni.getText();
-
         try {
             PreparedStatement ps = Conn.con().prepareStatement("SELECT * FROM usuarios where dni = ? and contrasenya = ? ;");
             ps.setString(1,numdni);
@@ -49,12 +48,10 @@ public class Controller {
             ResultSet rs  = ps.executeQuery();
             if(rs.next()){
                 user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya"));
-                System.out.println(user);
                 user();
                 Principal.escenaManejoTpv();
                 dni.setText("");
                 password.setText("");
-                System.out.println("Hola");
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error no se ha podido iniciar sesión");

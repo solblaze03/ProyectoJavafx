@@ -145,7 +145,7 @@ static Stage stage;
     //Método que a partir del objeto seleccionado lo muestra en el formulario
 //También puede habilitar/deshabilitar botones en el formualrio
 
-    public static Usuario moduser;
+    static Usuario moduser;
 
 
 
@@ -163,10 +163,10 @@ static Stage stage;
 
     @FXML
     public void Eliminar(ActionEvent actionEvent) {
-        Gestiontpv tpv = new Gestiontpv();
+
         try {
-            String sql = "DELETE FROM `tpv`.`usuarios` WHERE (`dni` = ? );";
-            PreparedStatement ps = tpv.Con().prepareStatement(sql);
+            String sql = "DELETE FROM usuarios WHERE (dni = ? );";
+            PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setString(1,moduser.getDNI());
             ps.executeUpdate();
             users.clear();

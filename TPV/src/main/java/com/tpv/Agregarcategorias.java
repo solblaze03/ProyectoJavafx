@@ -75,7 +75,7 @@ public class Agregarcategorias implements Initializable {
 
                 if(result.get() == ButtonType.OK){
                     System.out.println("eliminar");
-                    String sql = "DELETE FROM `categoria` WHERE (`id_categoria` = ? );";
+                    String sql = "DELETE FROM categoria WHERE (id_categoria = ? );";
                     PreparedStatement ps = Conn.con().prepareStatement(sql);
                     System.out.println(categoriaseleccionada.getCategoria());
                     ps.setString(1,categoriaseleccionada.getCategoria());
@@ -405,7 +405,7 @@ public class Agregarcategorias implements Initializable {
             if (rs.next()){
                 imagenantigua = rs.getString("urlImagen");
             }
-            String sql = "UPDATE `categoria` SET `id_categoria` = ?, `nombre` = ?, `urlImagen` = ? WHERE (`id_categoria` = ? );";
+            String sql = "UPDATE categoria SET id_categoria = ?, nombre = ?, urlImagen = ? WHERE (id_categoria = ? );";
             PreparedStatement psupdate = Conn.con().prepareStatement(sql);
             psupdate.setString(1,tfidcategoria.getText());
             if(file != null) {

@@ -100,7 +100,7 @@ public class Agregarproductos implements Initializable {
         if (result.isPresent()){
             if (result.get() == ButtonType.OK){
                 try {
-                    String sql = "DELETE FROM `productos` WHERE (`codigo_barras` = ?);";
+                    String sql = "DELETE FROM productos WHERE (codigo_barras = ?);";
                     PreparedStatement ps = Conn.con().prepareStatement(sql);
                     ps.setString(1,productoseleccionado.getCodigosbarra());
                     ps.executeUpdate();
@@ -232,7 +232,7 @@ public class Agregarproductos implements Initializable {
         if (tfbarras.getText() != "" && tfnombres.getText() != "" && tfdcto.getText() != "" && cbiva.getValue() != null && tfprecio.getText() != "") {
             try {
 
-                String sql = "INSERT INTO `productos` (`codigo_barras`, `nombre`, `id_categoria`, `url_codigobarras`, `iva`, `descuento` , `precio`) VALUES (?, ?, ?, ?, ?, ?,?);";
+                String sql = "INSERT INTO productos (codigo_barras, nombre, id_categoria, url_codigobarras, iva, descuento , precio) VALUES (?, ?, ?, ?, ?, ?,?);";
                 String sqlselect = "SElECT * FROM categoria WHERE nombre = ? ;";
                 PreparedStatement psselect = Conn.con().prepareStatement(sqlselect);
                 psselect.setString(1, cbcategoria.getValue());
@@ -397,17 +397,17 @@ public class Agregarproductos implements Initializable {
     public void cargar(){
         try {
             Statement st = Conn.con().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM productos left join categoria on productos.id_categoria = categoria.id_categoria;");
+            ResultSet rs = st.executeQuery("SELECT *,categoria.nombre as cnombre, productos.nombre as pnombre FROM productos left join categoria on productos.id_categoria = categoria.id_categoria;");
             while (rs.next()){
 
                 String categoria = null;
-                if(rs.getString("categoria.nombre") == null){
+                if(rs.getString("cnombre") == null){
                     categoria = "Sin categoria";
                 }else{
-                    categoria = rs.getString("categoria.nombre");
+                    categoria = rs.getString("cnombre");
                 }
 
-                list.add(new Productos(rs.getString("codigo_barras"),rs.getString("productos.nombre"),categoria,rs.getString("url_codigobarras"),rs.getInt("iva"),rs.getInt("descuento"),rs.getDouble("precio")));
+                list.add(new Productos(rs.getString("codigo_barras"),rs.getString("pnombre"),categoria,rs.getString("url_codigobarras"),rs.getInt("iva"),rs.getInt("descuento"),rs.getDouble("precio")));
             }
             identicadorqr.setCellValueFactory(new PropertyValueFactory<>("codigosbarra"));
             nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -517,7 +517,7 @@ public class Agregarproductos implements Initializable {
     public void okmodi(ActionEvent actionEvent) {
         if (tfbarras.getText() != "" && tfnombres.getText() != "" && tfdcto.getText() != "" && cbiva.getValue() != null && tfprecio.getText() != "") {
             try {
-                String sql = "UPDATE `productos` SET `nombre` = ?, `id_categoria` = ?, `url_codigobarras` = ?, `iva` = ?, `descuento` = ?, `precio` = ?, codigo_barras = ? WHERE (`codigo_barras` = ?);";
+                String sql = "UPDATE productos SET nombre = ?, id_categoria = ?, url_codigobarras = ?, iva = ?, descuento = ?, precio = ?, codigo_barras = ? WHERE (codigo_barras = ?);";
                 PreparedStatement ps = Conn.con().prepareStatement(sql);
                 String sql1 = "SELECT * FROM categoria where nombre = ? ;";
 
@@ -525,9 +525,9 @@ public class Agregarproductos implements Initializable {
                 pscat.setString(1,cbcategoria.getValue());
 
                 ResultSet rs = pscat.executeQuery();
-                Integer categoria= 0;
+                String categoria= "";
                 if (rs.next()){
-                    categoria = rs.getInt("id_categoria");
+                    categoria = rs.getString("id_categoria");
                 }else{
                     categoria = null;
                 }
@@ -538,7 +538,7 @@ public class Agregarproductos implements Initializable {
                 if(categoria == null){
                     ps.setString(2,null);
                 }else {
-                    ps.setInt(2, categoria);
+                    ps.setString(2, categoria);
                 }
 
 
