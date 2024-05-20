@@ -3,10 +3,12 @@ package com.tpvprincipal;
 import com.tpvprincipal.clases.Conn;
 import com.tpvprincipal.clases.Productos;
 import com.tpvprincipal.clases.Usuario;
+import com.tpvprincipal.excepciones.NegativeNumberException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,12 +16,20 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.commons.math3.util.Precision;
 
+import javax.swing.text.NumberFormatter;
+import java.io.*;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,32 +93,38 @@ public class controllerpantalla implements Initializable {
     private Button tv9;
     @FXML
     private Button tv8;
+    @FXML
+    private Label tdcto;
+    @FXML
+    private Button cobrarefec;
+    @FXML
+    private Button cobrarfac;
+    @FXML
+    private Button cerrarcaja;
 
 
     public void cargartabla(String codigo){
         try {
-            String sql = "SELECT * FROM productos left join categoria on productos.id_categoria = categoria.id_categoria where codigo_barras = ?";
+            String sql = "SELECT *,categoria.nombre as cnombre,productos.nombre as pnombre FROM productos left join categoria on productos.id_categoria = categoria.id_categoria where codigo_barras = ?";
             PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setString(1,codigo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
 
                 String categoria = null;
-                if(rs.getString("categoria.nombre") == null){
+                if(rs.getString("cnombre") == null){
                     categoria = "Sin categoria";
                 }else{
-                    categoria = rs.getString("categoria.nombre");
+                    categoria = rs.getString("cnombre");
                 }
 
-                list.add(new Productos(rs.getString("codigo_barras"),rs.getString("productos.nombre"),categoria,rs.getString("url_codigobarras"),rs.getInt("iva"),rs.getInt("descuento"),rs.getDouble("precio"),rs.getDouble("precio"),1));
+                list.add(new Productos(rs.getString("codigo_barras"),rs.getString("pnombre"),categoria,rs.getString("url_codigobarras"),rs.getInt("iva"),rs.getInt("descuento"),rs.getDouble("precio"),rs.getDouble("precio"),1));
             }
             codigosbarra.setCellValueFactory(new PropertyValueFactory<>("codigosbarra"));
             producto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             categoria.setCellValueFactory(new PropertyValueFactory<>("id_categoria"));
             iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
             descuento.setCellValueFactory(new PropertyValueFactory<>("dcto"));
-
-
             precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
             tviewgrande.setItems(list);
 
@@ -117,40 +133,85 @@ public class controllerpantalla implements Initializable {
             alert.setTitle("SQLException");
             alert.setHeaderText(e.getMessage());
             alert.show();
+            System.out.println(e.getMessage());
         }
     }
-
+    private double cant_descuento;
     private ObservableList<Productos> list2 = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        double totalcaja = 0;
+        double suma1 = 0;
+        try {
+            FileReader fr = new FileReader("src/main/resources/com/tpvprincipal/Facturas/total.txt");
+            BufferedReader bf = new BufferedReader(fr);
+            String linea  = bf.readLine();
+            int cont = 0;
+            while (linea != null){
+                if (cont == 0){
+                    totalfacturas = Double.parseDouble(linea);
+                }else {
+                    Billete.suma = Double.parseDouble(linea);
+                }
+                    cont++;
+                linea = bf.readLine();
+            }
+
+
+
+            System.out.println("Total suma: "+Billete.suma);
+            System.out.println("Total facturas: "+totalfacturas);
+
+            FileWriter fw = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
+            fw.write(totalfacturas+"\n"+Billete.suma);
+            fw.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+
+
+        cobrarefec.setDisable(true);
+        cobrarfac.setDisable(true);
         Usuario usuario = Controller.user();
         nombre.setText(usuario.getNombre());
         panel.getStylesheets().add(getClass().getResource("css/tablas.css").toExternalForm());
 
-
+        System.out.println(Billete.suma);
         // para obtener el registro con doble click
         tviewgrande.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Productos productoss = tviewgrande.getSelectionModel().getSelectedItem();
+                System.out.println(productoss.getCantidad());
 
                 if (productoss != null) {
                     System.out.println(productoss.getCantidad());
                     agregarTviewPequeño(productoss);
                 }
+
+
+
+
             }
+
         });
 
 
     }
 
-
+    private String cadnumero = "";
     double totalfactura  = 0;
     public void agregarTviewPequeño(Productos producto){
+        double totaldcto = 0;
         int numprod = 0;
         boolean esta = false;
         int numero = 0;
+        cobrarfac.setDisable(false);
+        cobrarefec.setDisable(false);
+
         for (int i = 0; i < list2.size(); i++) {
             if (list2.get(i).getCodigosbarra().equals(producto.getCodigosbarra())){
+
 
                 numero = i;
                 esta = true;
@@ -158,45 +219,76 @@ public class controllerpantalla implements Initializable {
         }
 
         if(!esta) {
-            numprod = list2.indexOf(producto);
 
-            nombre.setText(numero+"");
-            list2.add(producto);
-            tunidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-            tproducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-            tprecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-            ttotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-            totalfactura += producto.getPrecio();
-            tviewpequeño.setItems(list2);
-            System.out.println("no Esta el producto");
+
+
+                if(producto.getDcto() == 0) {
+
+                    nombre.setText(numero + "");
+                    list2.add(producto);
+                    tunidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+                    tproducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+                    tprecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+                    ttotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+                    totalfactura += producto.getPrecio();
+                    tviewpequeño.setItems(list2);
+
+                    numprod = list2.indexOf(producto);
+                }else{
+
+                    producto.setTotal(producto.getPrecio() -  (producto.getPrecio() * producto.getDcto() / 100));
+                    System.out.println(producto.getTotal());
+                    nombre.setText(numero + "");
+                    list2.add(producto);
+                    tunidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+                    tproducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+                    tprecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+                    ttotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+                    tviewpequeño.setItems(list2);
+                    totalfactura += producto.getPrecio() - ((producto.getPrecio() * producto.getDcto() / 100));
+                }
+
+
         }else{
 
 
-            System.out.println("Esta el producto");
-            list2.get(numero).setCantidad(list2.get(numero).getCantidad()+1);
-            list2.get(numero).setTotal(producto.getPrecio());
+
+            if(list2.get(numero).getDcto() == 0) {
+                list2.get(numero).setCantidad(list2.get(numero).getCantidad() + 1);
+                list2.get(numero).setTotal(list2.get(numero).getPrecio());
 
 
-            list2.set(numero,list2.get(numero));
-            totalfactura += producto.getPrecio();
+                list2.set(numero, list2.get(numero));
+                totalfactura += list2.get(numero).getPrecio();
+                list2.get(numero).setTotal(list2.get(numero).getPrecio() * list2.get(numero).getCantidad());
+                list2.set(numero,list2.get(numero));
+            }else{
+                System.out.println("entra");
+                Productos pd = list2.get(numero);
+
+
+                pd.setCantidad(pd.getCantidad() + 1);
+                double totalcolumn =  (((pd.getPrecio() * pd.getCantidad()) - (((pd.getPrecio() * pd.getCantidad()) * pd.getDcto())) / 100));
+
+                pd.setTotal(totalcolumn);
+
+
+
+                list2.set(numero, pd);
+                totalfactura += producto.getPrecio() - ((producto.getPrecio() * producto.getDcto() / 100));
+            }
         }
-        totalcajero.setText(totalfactura+"");
+
+        totalcajero.setText( Precision.round(totalfactura,2)+"");
 
     }
-
-
-
-
-
-
-
 
     /*
     *   Botones
     *   del
     *   teclado
      */
-
 
     @javafx.fxml.FXML
     private Button t4;
@@ -284,6 +376,7 @@ public class controllerpantalla implements Initializable {
     private Button t2;
     @javafx.fxml.FXML
     private Button t3;
+    private double totalfacturas = 0;
 
     private String cadena = "";
     @javafx.fxml.FXML
@@ -716,23 +809,150 @@ public class controllerpantalla implements Initializable {
                 cadenapq += num;
                 tfvuelta.setText(cadenapq);
             }
-
-
-
     }
 
-    @FXML
-    public void tvimprimir(ActionEvent actionEvent) {
+
+
+    public void numnegativo(double num) throws NegativeNumberException{
+        if(num >0){
+            throw new NegativeNumberException("Numero negativo");
+        }
     }
 
-    @FXML
-    public void cobrar(ActionEvent actionEvent) {
+    public void pagar(String tipopago){
+        try {
+            String total[] =  totalcajero.getText().split("€");
+            System.out.println(total[0]);
+            System.out.println(tfvuelta.getText());
+            if(tipopago.equals("Efectivo")){
+                double vueltas = Double.parseDouble(total[0]) - Double.parseDouble(tfvuelta.getText());
+                numnegativo(vueltas);
+                double cambiototal = Double.parseDouble(tfvuelta.getText()) - Double.parseDouble(total[0]);
+                cambiototal = Precision.round(cambiototal, 2);
+                Alert alertvueltas = new Alert(Alert.AlertType.INFORMATION);
+                alertvueltas.setTitle("Cambio");
+                alertvueltas.setHeaderText("El total de cambio es de " + cambiototal + "€");
+                alertvueltas.showAndWait();
+            }
+            String sql = "insert into factura (nombre_usuario,hora_compra,tipo_pago) values ( ?,Current_TIMESTAMP , ? );";
+            PreparedStatement ps = Conn.con().prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1,Controller.user().getNombre());
+            ps.setString(2,tipopago);
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            int registro = 0;
+            if (rs.next()){
+                registro = rs.getInt(1);
+            }
+            for (int i = 0; i < list2.size(); i++) {
+
+                String sqldetalle = "insert into detallefactura (idfactura,producto,cantidad,precio,descuento,total) values (?,?,?,?,?,?);";
+                PreparedStatement psdetalle = Conn.con().prepareStatement(sqldetalle);
+                psdetalle.setInt(1,registro);
+                psdetalle.setString(2,list2.get(i).getNombre());
+                psdetalle.setInt(3,list2.get(i).getCantidad());
+                psdetalle.setDouble(4,list2.get(i).getPrecio());
+                psdetalle.setDouble(5,list2.get(i).getDcto());
+                psdetalle.setDouble(6,list2.get(i).getTotal());
+                System.out.println("Entra");
+                System.out.println( psdetalle.executeUpdate());
+
+
+            }
+
+
+
+
+
+            String linea1 = "";
+            double totalsindcto = 0;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+            for (int i = 0; i < list2.size(); i++) {
+                Productos pro = list2.get(i);
+
+                linea1 += String.format("Cantidad %d - Producto %s - IVA %d %%  - Precio %.2f € - dcto %d %% \n", pro.getCantidad(), pro.getNombre(), pro.getIva(), (pro.getPrecio() * pro.getCantidad()), pro.getDcto());
+                totalsindcto += pro.getPrecio() * pro.getCantidad();
+            }
+
+            String facturapago = "_____________________________________________________\n" +
+                    "Bienvenido\n" +
+                    "\n" +
+                    "numero de factura: "+registro+
+                    "\nHa sido atendido por " + Controller.user().getNombre() + "\n" +
+                    "Se puede contactar al siguiente teléfono: +34 747429922\n" +
+                    "Compra hecha el " + dtf.format(LocalDateTime.now()) +
+                    "\n_____________________________________________________\n" +
+                    linea1 +
+                    "_______________________________________________________\n" +
+                    "Total sin descuento: " + totalsindcto +
+                    "\nTotal: " + totalcajero.getText() + "\n" +
+                    "Pago hecho con: "+tipopago+
+
+
+                    "\n________________________________________________________";
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Factura");
+            alert.setHeaderText(null);
+            TextArea ta = new TextArea(facturapago);
+            ta.setEditable(false);
+            ta.setWrapText(true);
+            alert.getDialogPane().setContent(ta);
+            alert.setHeight(430.0);
+            alert.showAndWait();
+
+
+            // imprimir en fichero
+            FileWriter fw = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/file1.txt");
+            fw.write(facturapago);
+            fw.close();
+
+            totalfacturas +=  Precision.round(Double.parseDouble(total[0]),2);
+            System.out.println(totalfacturas);
+
+            list2.clear();
+
+            FileWriter fwtotal = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
+            fwtotal.write(totalfacturas+"\n");
+            fwtotal.write(Billete.suma+"");
+            fwtotal.close();
+
+            cobrarefec.setDisable(true);
+            cobrarfac.setDisable(true);
+            totalcajero.setText("0.0 €");
+            tfvuelta.setText("");
+            totalfactura = 0;
+            cadenapq = "";
+            cont = 0;
+            punto = false;
+            tfbuscar.setText("");
+            list.clear();
+
+
+
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }catch (NegativeNumberException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No tiene suficiente dinero para hacer esta compra");
+            alert.show();
+        }catch (NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No has introducido ningun numero");
+            alert.show();
+        }
     }
+
+
 
     @FXML
     public void tv1(ActionEvent actionEvent) {
         agregarNumerostfVuelta("1");
-
     }
 
     @FXML
@@ -774,6 +994,10 @@ public class controllerpantalla implements Initializable {
     public void tv8(ActionEvent actionEvent) {
         agregarNumerostfVuelta("8");
     }
+    @FXML
+    public void tv0(ActionEvent actionEvent) {
+        agregarNumerostfVuelta("0");
+    }
     boolean punto = false;
     @FXML
     public void tvcoma(ActionEvent actionEvent) {
@@ -804,5 +1028,42 @@ public class controllerpantalla implements Initializable {
     public void tvclear(ActionEvent actionEvent) {
         cadenapq = "";
         tfvuelta.setText("");
+        punto = false;
+        cont = 0;
+    }
+
+    @FXML
+    public void fullscreen(ActionEvent actionEvent) {
+
+        Principal.fullScreen();
+    }
+
+    @FXML
+    public void cobrarTarjeta(ActionEvent actionEvent) {
+        pagar("Tarjeta");
+    }
+
+    @FXML
+    public void cobrarEfectivo(ActionEvent actionEvent) {
+        pagar("Efectivo");
+    }
+    @FXML
+    public void cerrarCaja(ActionEvent actionEvent) {
+        try {
+
+
+
+
+
+            Statement st = Conn.con().createStatement();
+            st.executeUpdate("UPDATE usuarios SET sesion_abierta = 0 where sesion_abierta = 1");
+            FileWriter fw = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
+            fw.close();
+            System.exit(0);
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

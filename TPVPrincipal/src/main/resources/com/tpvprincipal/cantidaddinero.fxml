@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="873.0" prefWidth="1121.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpvprincipal.Billete">
+   <children>
+      <Label alignment="CENTER" layoutX="1.0" layoutY="24.0" prefHeight="17.0" prefWidth="1121.0" text="Cantidad dinero en la caja" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="173.0" layoutY="449.0" prefHeight="245.0" prefWidth="798.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="213.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+               <image>
+                  <Image url="@Billetes/billetecinco.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@Billetes/billete20.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@Billetes/billete10.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@Billetes/billete50.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <Spinner fx:id="cincoeuros" layoutX="198.0" layoutY="698.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="diezeuros" layoutX="397.0" layoutY="698.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="ventieeuros" layoutX="599.0" layoutY="698.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="cincuentaeuros" layoutX="802.0" layoutY="698.0" stylesheets="@css/dinero.css" />
+      <GridPane layoutX="145.0" layoutY="90.0" prefHeight="120.0" prefWidth="903.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="170.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="173.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="171.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" prefWidth="201.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="166.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="114.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@Billetes/moneda5cent-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="108.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@Billetes/2cent-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Billetes/1cent-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@Billetes/10cent-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="100.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@Billetes/20cent-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <Spinner fx:id="uncentimo" layoutX="117.0" layoutY="223.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="doscentimos" layoutX="296.0" layoutY="224.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="cincocentimos" layoutX="476.0" layoutY="222.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="diezcentimos" layoutX="661.0" layoutY="221.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="veintecent" layoutX="849.0" layoutY="222.0" stylesheets="@css/dinero.css" />
+      <Button layoutX="433.0" layoutY="773.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="62.0" prefWidth="285.0" text="Ingresar">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font></Button>
+      <GridPane layoutX="257.0" layoutY="272.0" prefHeight="132.0" prefWidth="770.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Billetes/png-transparent-1-cent-euro-coin-penny-50-cents-label-logo-1-cent-euro-coin-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@Billetes/moneda1euro-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="95.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@Billetes/moneda2eur-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+      <Spinner fx:id="cincuentcentimos" layoutX="239.0" layoutY="404.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="uneuro" layoutX="494.0" layoutY="404.0" stylesheets="@css/dinero.css" />
+      <Spinner fx:id="doseuros" layoutX="766.0" layoutY="404.0" stylesheets="@css/dinero.css" />
+   </children>
+</AnchorPane>

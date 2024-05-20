@@ -1,0 +1,34 @@
+.spinner {
+ -fx-background-color: transparent;
+}
+.text-field{
+    -fx-background-color: #1f1f1f;
+    -fx-border-color: blue;
+    -fx-border-width: 2;
+    -fx-border-radius: 10 0 0 10 ;
+    -fx-text-fill:white;
+    -fx-font-size:13;
+}
+.text-field:hover{
+    -fx-border-color: white;
+}
+
+.button{
+
+    -fx-background-color:#1f1f1f;
+    -fx-text-fill:white;
+ -fx-border-color:blue;
+ -fx-border-radius:18;
+ -fx-background-radius:18;
+ -fx-border-width:2;
+}
+.button:hover{
+   -fx-background-color:blue;
+ -fx-border-color:white;
+ -fx-text-fill:white;
+}
+.button:pressed{
+ -fx-background-color:black;
+ -fx-border-color:blue;
+ -fx-text-fill:white;
+}

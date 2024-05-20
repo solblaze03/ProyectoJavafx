@@ -1,0 +1,14 @@
+_____________________________________________________
+Bienvenido
+
+numero de factura: 55
+Ha sido atendido por root
+Se puede contactar al siguiente teléfono: +34 747429922
+Compra hecha el 2024/05/20 20:04:38
+_____________________________________________________
+Cantidad 1 - Producto Iphone 14 - IVA 21 %  - Precio 900,00 € - dcto 2 % 
+_______________________________________________________
+Total sin descuento: 900.0
+Total: 882.0
+Pago hecho con: Tarjeta
+________________________________________________________

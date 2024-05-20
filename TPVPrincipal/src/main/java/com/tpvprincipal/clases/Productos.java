@@ -15,7 +15,7 @@ public class Productos {
     public double getTotal() {
         return total;
     }
-
+    //
     public int getCantidad() {
         return cantidad;
     }
@@ -42,9 +42,12 @@ public class Productos {
         this.cantidad = cantidad;
     }
 
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public void setTotal(double total) {
-        this.total += total;
+        this.total = total;
     }
 
     public void setCantidad(int cantidad) {
