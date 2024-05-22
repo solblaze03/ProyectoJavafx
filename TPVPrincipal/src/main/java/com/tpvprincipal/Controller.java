@@ -56,11 +56,9 @@ public class Controller implements Initializable {
                 user.añadirUsuario(numdni,rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya"));
                 System.out.println(user);
                 user();
-
                 dni.setText("");
                 password.setText("");
                 System.out.println("Hola");
-
                 PreparedStatement psupdate = Conn.con().prepareStatement("UPDATE usuarios SET sesion_abierta = 1 where dni = ?");
                 psupdate.setString(1,numdni);
                 psupdate.executeUpdate();
@@ -86,8 +84,6 @@ public class Controller implements Initializable {
             ResultSet rs = st.executeQuery("SELECT * FROM usuarios where sesion_abierta = 1");
             if (rs.next()){
                 user.añadirUsuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya"));
-
-
             }
 
         }catch (SQLException e){

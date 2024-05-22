@@ -3,12 +3,14 @@ package com.tpvprincipal;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.math3.util.Precision;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Billete implements Initializable {
@@ -36,12 +38,17 @@ public class Billete implements Initializable {
     private Spinner <Integer> cincuentcentimos;
     @javafx.fxml.FXML
     private AnchorPane panel;
-    static double suma = 0;
+    static Double suma;
     @javafx.fxml.FXML
     private Spinner <Integer> veintecent;
+    @javafx.fxml.FXML
+    private Button cerrarcaja;
+    @javafx.fxml.FXML
+    private Button ingresar;
 
     @javafx.fxml.FXML
     public void ingresar(ActionEvent actionEvent) {
+        suma = 0.0;
         suma += diezcentimos.getValue() * 0.10;
         suma += uneuro.getValue() * 1.0;
         suma += doseuros.getValue() * 2.0;
@@ -106,12 +113,70 @@ public class Billete implements Initializable {
 
 
 
+
+
     }
+    private double cierre;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        boolean b = panel.getStylesheets().add(getClass().getResource("css/dinero.css").toExternalForm());
-        System.out.println(b);
-        confSpinner();
+        System.out.println(suma);
+        if(suma == null) {
+            cerrarcaja.setVisible(false);
+            boolean b = panel.getStylesheets().add(getClass().getResource("css/dinero.css").toExternalForm());
+            System.out.println(b);
+            confSpinner();
+        }else{
+
+            cerrarcaja.setVisible(true);
+            ingresar.setVisible(false);
+            confSpinner();
+
+
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void cerrarCaja(ActionEvent actionEvent) {
+        cincuentcentimos.cancelEdit();
+        cierre = 0.0;
+        cierre += diezcentimos.getValue() * 0.10;
+        cierre += uneuro.getValue() * 1.0;
+        cierre += doseuros.getValue() * 2.0;
+        cierre += uncentimo.getValue() * 0.01;
+        cierre += cincoeuros.getValue() * 5.0;
+        cierre += doscentimos.getValue() * 0.02;
+        cierre += cincocentimos.getValue() * 0.05;
+        cierre += ventieeuros.getValue() * 20.0;
+        cierre += diezeuros.getValue() * 10.0;
+        cierre += veintecent.getValue() * 0.20;
+        cierre += cincuentaeuros.getValue() * 50.0 ;
+
+
+        cierre = Precision.round(cierre,2);
+        System.out.println("Cierre "+cincuentaeuros.getValue());
+
+
+        double total = controllerpantalla.dineroencaja;
+        System.out.println("total "+cierre+ " "+total);
+
+        if (cierre == total){
+            System.out.println("Entra");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Descuadre en la caja");
+            alert.setHeaderText("No hubo descuadre en la caja");
+            alert.showAndWait();
+            System.exit(0);
+        }else{
+            System.out.println("Entra");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Descuadre en la caja");
+            alert.setHeaderText("Hubo un descuadre de caja de " + (cierre - total) +" euros" );
+            alert.showAndWait();
+            System.exit(0);
+        }
+
+
+
     }
 }

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="873.0" prefWidth="1121.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpvprincipal.Billete">
+<AnchorPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="873.0" prefWidth="1121.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpvprincipal.Billete">
    <children>
       <Label alignment="CENTER" layoutX="1.0" layoutY="24.0" prefHeight="17.0" prefWidth="1121.0" text="Cantidad dinero en la caja" textFill="WHITE">
          <font>
@@ -93,7 +99,7 @@
       <Spinner fx:id="cincocentimos" layoutX="476.0" layoutY="222.0" stylesheets="@css/dinero.css" />
       <Spinner fx:id="diezcentimos" layoutX="661.0" layoutY="221.0" stylesheets="@css/dinero.css" />
       <Spinner fx:id="veintecent" layoutX="849.0" layoutY="222.0" stylesheets="@css/dinero.css" />
-      <Button layoutX="433.0" layoutY="773.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="62.0" prefWidth="285.0" text="Ingresar">
+      <Button fx:id="ingresar" layoutX="433.0" layoutY="773.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="62.0" prefWidth="285.0" text="Ingresar">
          <font>
             <Font name="System Bold" size="27.0" />
          </font></Button>
@@ -127,5 +133,10 @@
       <Spinner fx:id="cincuentcentimos" layoutX="239.0" layoutY="404.0" stylesheets="@css/dinero.css" />
       <Spinner fx:id="uneuro" layoutX="494.0" layoutY="404.0" stylesheets="@css/dinero.css" />
       <Spinner fx:id="doseuros" layoutX="766.0" layoutY="404.0" stylesheets="@css/dinero.css" />
+      <Button fx:id="cerrarcaja" layoutX="431.0" layoutY="774.0" mnemonicParsing="false" onAction="#cerrarCaja" prefHeight="62.0" prefWidth="285.0" text="Cerrar caja">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

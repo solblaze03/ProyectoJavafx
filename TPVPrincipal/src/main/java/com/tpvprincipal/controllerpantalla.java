@@ -17,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.math3.util.Precision;
-
 import javax.swing.text.NumberFormatter;
 import java.io.*;
 import java.net.URL;
@@ -68,7 +67,7 @@ public class controllerpantalla implements Initializable {
     @FXML
     private TableColumn tproducto;
     @FXML
-    private TableView tviewpequeño;
+    private TableView <Productos> tviewpequeño;
     @FXML
     private Label totalcajero;
     @FXML
@@ -101,13 +100,13 @@ public class controllerpantalla implements Initializable {
     private Button cobrarfac;
     @FXML
     private Button cerrarcaja;
-
+    static Double dineroencaja = 0.0;
 
     public void cargartabla(String codigo){
         try {
-            String sql = "SELECT *,categoria.nombre as cnombre,productos.nombre as pnombre FROM productos left join categoria on productos.id_categoria = categoria.id_categoria where codigo_barras = ?";
+            String sql = "SELECT *,categoria.nombre as cnombre,productos.nombre as pnombre FROM productos left join categoria on productos.id_categoria = categoria.id_categoria where codigo_barras like ?";
             PreparedStatement ps = Conn.con().prepareStatement(sql);
-            ps.setString(1,codigo);
+            ps.setString(1,codigo+"%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
 
@@ -140,34 +139,33 @@ public class controllerpantalla implements Initializable {
     private ObservableList<Productos> list2 = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cargartabla("");
         double totalcaja = 0;
         double suma1 = 0;
         try {
             FileReader fr = new FileReader("src/main/resources/com/tpvprincipal/Facturas/total.txt");
             BufferedReader bf = new BufferedReader(fr);
             String linea  = bf.readLine();
-            int cont = 0;
-            while (linea != null){
-                if (cont == 0){
-                    totalfacturas = Double.parseDouble(linea);
-                }else {
-                    Billete.suma = Double.parseDouble(linea);
-                }
-                    cont++;
-                linea = bf.readLine();
+
+            if (linea != null){
+                String partescadena[] = linea.split(":");
+                totalfacturas = Double.parseDouble(partescadena[0]);
+                Billete.suma = Double.parseDouble(partescadena[1]);
+                dineroencaja = Double.parseDouble(partescadena[2]);
+            }else{
+                dineroencaja = Billete.suma;
             }
-
-
-
             System.out.println("Total suma: "+Billete.suma);
             System.out.println("Total facturas: "+totalfacturas);
+            System.out.println("Dinero en caja "+ dineroencaja);
 
             FileWriter fw = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
-            fw.write(totalfacturas+"\n"+Billete.suma);
+            fw.write(totalfacturas+":"+Billete.suma+":"+dineroencaja);
             fw.close();
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
+
 
 
 
@@ -183,15 +181,20 @@ public class controllerpantalla implements Initializable {
             if (event.getClickCount() == 2) {
                 Productos productoss = tviewgrande.getSelectionModel().getSelectedItem();
                 System.out.println(productoss.getCantidad());
-
                 if (productoss != null) {
                     System.out.println(productoss.getCantidad());
                     agregarTviewPequeño(productoss);
                 }
+            }
 
+        });
+        tviewpequeño.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2){
 
-
-
+                Productos productos1 = tviewpequeño.getSelectionModel().getSelectedItem();
+                for (int i = 0; i < list2.size(); i++) {
+                    list2.get(i).
+                }
             }
 
         });
@@ -376,7 +379,7 @@ public class controllerpantalla implements Initializable {
     private Button t2;
     @javafx.fxml.FXML
     private Button t3;
-    private double totalfacturas = 0;
+    static Double totalfacturas = 0.0;
 
     private String cadena = "";
     @javafx.fxml.FXML
@@ -914,9 +917,18 @@ public class controllerpantalla implements Initializable {
             list2.clear();
 
             FileWriter fwtotal = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
-            fwtotal.write(totalfacturas+"\n");
-            fwtotal.write(Billete.suma+"");
-            fwtotal.close();
+
+            if (tipopago.equals("Tarjeta")){
+                System.out.println("Tarjeta");
+                System.out.println(dineroencaja);
+                fwtotal.write( totalfacturas+ ":" + Billete.suma+":"+ dineroencaja);
+                fwtotal.close();
+            }else {
+                System.out.println("Efectivo");
+                dineroencaja = Billete.suma + totalfacturas;
+                fwtotal.write(totalfacturas + ":" + Billete.suma+":"+ dineroencaja);
+                fwtotal.close();
+            }
 
             cobrarefec.setDisable(true);
             cobrarfac.setDisable(true);
@@ -928,8 +940,6 @@ public class controllerpantalla implements Initializable {
             punto = false;
             tfbuscar.setText("");
             list.clear();
-
-
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -1050,16 +1060,11 @@ public class controllerpantalla implements Initializable {
     @FXML
     public void cerrarCaja(ActionEvent actionEvent) {
         try {
-
-
-
-
-
             Statement st = Conn.con().createStatement();
             st.executeUpdate("UPDATE usuarios SET sesion_abierta = 0 where sesion_abierta = 1");
             FileWriter fw = new FileWriter("src/main/resources/com/tpvprincipal/Facturas/total.txt");
             fw.close();
-            System.exit(0);
+            Principal.pantalladinero();
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }catch (IOException e){
