@@ -1,0 +1,53 @@
+.chart-line-symbol {
+    -fx-background-color: white,red;
+    -fx-background-insets: 0, 3;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 3px;
+    -fx-stroke-dash-array: 5 5;
+    -fx-stroke-line-cap: ROUND;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.5, 0, 0);
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #403fbd;
+}
+
+.chart {
+    -fx-background-color: #1f1f1f;
+}
+.axis-label {
+    -fx-text-fill: white;
+}
+.chart .label{
+    -fx-text-fill:white;
+
+}
+.chart{
+    -fx-background-color:#1f1f1f;
+}
+.axis-tick-mark {
+    -fx-text-fill: red;
+}
+.chart-plot-background {
+    -fx-background-color: #1f1f1f; /* Fondo del área de trazado del gráfico */
+}
+.button{
+    -fx-background-color:#1f1f1f;
+    -fx-text-fill:white;
+    -fx-border-color:blue;
+    -fx-border-radius:18;
+    -fx-background-radius:18;
+    -fx-border-width:2;
+}
+.button:hover{
+    -fx-border-color:white;
+}
+.button:pressed{
+    -fx-background-color:blue;
+    -fx-border-color:white;
+}

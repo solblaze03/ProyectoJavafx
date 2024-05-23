@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class Principal extends Application {
 
-    private static Stage stage;
-    private static Scene scene,scene1,escenaaddusers,scenacategorias,escenaproductos;
+    static Stage stage;
+    static Scene scene,scene1,escenaaddusers,scenacategorias,escenaproductos,graficas;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -88,6 +88,20 @@ public class Principal extends Application {
             stage.setScene(scenacategorias);
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+    }
+    public static void graficas() {
+        try {
+            FXMLLoader loadergraficas = new FXMLLoader(Principal.class.getResource("graficas.fxml"));
+            graficas = new Scene(loadergraficas.load());
+            stage.setScene(graficas);
+            stage.setResizable(true);
+            stage.setFullScreen(true);
+        }catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("error graficas");
             alert.setContentText(e.getMessage());
             alert.show();
         }

@@ -36,10 +36,6 @@ public class Manejotpv implements Initializable {
     private Label welcome;
 
 
-    @Deprecated
-    void buscar(ActionEvent event) {
-
-    }
 
     @javafx.fxml.FXML
     public void agregarProductos(ActionEvent actionEvent) {
@@ -83,5 +79,10 @@ public class Manejotpv implements Initializable {
     @FXML
     public void agregarCategorias(ActionEvent actionEvent) {
         Principal.escenaCategorias();
+    }
+
+    @FXML
+    public void Ventas(ActionEvent actionEvent) {
+        Principal.graficas();
     }
 }

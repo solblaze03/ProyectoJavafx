@@ -374,7 +374,7 @@ public class Agregarcategorias implements Initializable {
     //Método que a partir del objeto seleccionado lo muestra en el formulario
 //También puede habilitar/deshabilitar botones en el formualrio
 
-    public static Usuario moduser;
+    static Usuario moduser;
 
     private int numcategoria;
     private Categoria categoriaseleccionada;

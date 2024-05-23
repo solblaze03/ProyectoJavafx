@@ -25,7 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Segundaventana implements Initializable {
+public class Segundaventana implements Initializable{
     @FXML
     private Label Contraseña;
     @FXML
@@ -50,6 +50,7 @@ public class Segundaventana implements Initializable {
     private Button Modificar;
     @FXML
     private Button registro;
+    private double suma;
 
 
 
@@ -71,43 +72,7 @@ public class Segundaventana implements Initializable {
 
     }
     private Usuario usuario;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        usuario =  Adduser.moduser;
-        if(usuario != null) {
-            tfdni.setText(usuario.getDNI());
-            tfnombre.setText(usuario.getNombre());
-            tdpassword.setText(usuario.getPassword());
-            Modificar.setVisible(true);
-            registro.setVisible(false);
-
-            if (usuario.getUrlImagen() != null) {
-
-                    File file = new File("src/main/resources/com/tpv/"+usuario.getUrlImagen());
-                    Image image = new Image(file.toURI().toString());
-                    imagen.setImage(image);
-
-
-            }
-
-
-        }else{
-            tfdni.setText("");
-            tfnombre.setText("");
-            Modificar.setVisible(false);
-            registro.setVisible(true);
-        }
-
-            ObservableList<String> listaa = FXCollections.observableArrayList();
-            listaa.add("Admin");
-            listaa.add("Usuario");
-
-
-            cbprivi.getItems().setAll(listaa);
-
-
-    }
     private File file;
     @FXML
     void Registrar(ActionEvent event) {
@@ -209,5 +174,42 @@ public class Segundaventana implements Initializable {
         }
 
         // new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"))
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        usuario =  Adduser.moduser;
+        if(usuario != null) {
+            tfdni.setText(usuario.getDNI());
+            tfnombre.setText(usuario.getNombre());
+            tdpassword.setText(usuario.getPassword());
+            Modificar.setVisible(true);
+            registro.setVisible(false);
+
+            if (usuario.getUrlImagen() != null) {
+
+                File file = new File("src/main/resources/com/tpv/"+usuario.getUrlImagen());
+                Image image = new Image(file.toURI().toString());
+                imagen.setImage(image);
+
+
+            }
+
+
+        }else{
+            tfdni.setText("");
+            tfnombre.setText("");
+            Modificar.setVisible(false);
+            registro.setVisible(true);
+        }
+
+        ObservableList<String> listaa = FXCollections.observableArrayList();
+        listaa.add("Admin");
+        listaa.add("Usuario");
+
+
+        cbprivi.getItems().setAll(listaa);
+
     }
 }
