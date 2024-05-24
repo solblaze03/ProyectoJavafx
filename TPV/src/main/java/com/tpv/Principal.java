@@ -104,6 +104,7 @@ public class Principal extends Application {
             alert.setTitle("error graficas");
             alert.setContentText(e.getMessage());
             alert.show();
+            e.printStackTrace();
         }
     }
     public static void main(String[] args) {

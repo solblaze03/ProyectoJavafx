@@ -16,9 +16,13 @@
 .default-color0.chart-series-line {
     -fx-stroke: #403fbd;
 }
+.axis-label {
+    -fx-font-size: 16px; /* Tamaño de fuente de las etiquetas de los ejes */
+}
 
 .chart {
     -fx-background-color: #1f1f1f;
+    -fx-font-size: 16;
 }
 .axis-label {
     -fx-text-fill: white;
