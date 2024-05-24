@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -35,7 +36,7 @@ public class Segundaventana implements Initializable{
     @FXML
     private Button buscarUrl;
     @FXML
-    private ChoiceBox<String> cbprivi;
+    private ComboBox<String> cbprivi;
     @FXML
     private PasswordField tdpassword;
     @FXML
@@ -51,8 +52,8 @@ public class Segundaventana implements Initializable{
     @FXML
     private Button registro;
     private double suma;
-
-
+    @FXML
+    private AnchorPane pane;
 
 
     @FXML
@@ -178,7 +179,7 @@ public class Segundaventana implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        pane.getStylesheets().add(getClass().getResource("css/escenaproductos.css").toExternalForm());
         usuario =  Adduser.moduser;
         if(usuario != null) {
             tfdni.setText(usuario.getDNI());

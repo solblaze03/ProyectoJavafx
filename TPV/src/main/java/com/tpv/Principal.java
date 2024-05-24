@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public class Principal extends Application {
         scene.getStylesheets().add(getClass().getResource("css/inicio.css").toExternalForm());
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setTitle("TPV IES la Senia");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("tpv.png")));
         stage.setResizable(false);
 
         stage.show();
@@ -49,6 +52,7 @@ public class Principal extends Application {
             FXMLLoader loader1 = new FXMLLoader(Principal.class.getResource("manejotpv.fxml"));
             scene1 = new Scene(loader1.load());
             stage.setScene(scene1);
+            stage.setResizable(false);
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -59,12 +63,14 @@ public class Principal extends Application {
             FXMLLoader loaderusers = new FXMLLoader(Principal.class.getResource("anyadirusuarios.fxml"));
             escenaaddusers = new Scene(loaderusers.load());
             stage.setScene(escenaaddusers);
+            stage.setResizable(false);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
     public static void escenainicio(){
         stage.setScene(scene);
+        stage.setResizable(false);
     }
 
     public static void escenaproductos(){
@@ -74,6 +80,7 @@ public class Principal extends Application {
             escenaproductos = new Scene(loaderproductos.load());
 
             stage.setScene(escenaproductos);
+            stage.setResizable(false);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
@@ -86,6 +93,7 @@ public class Principal extends Application {
             FXMLLoader loadercategorias = new FXMLLoader(Principal.class.getResource("Anyadircategorias.fxml"));
             scenacategorias = new Scene(loadercategorias.load());
             stage.setScene(scenacategorias);
+            stage.setResizable(false);
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(e.getMessage());
@@ -106,6 +114,7 @@ public class Principal extends Application {
             alert.show();
             e.printStackTrace();
         }
+
     }
     public static void main(String[] args) {
         launch();

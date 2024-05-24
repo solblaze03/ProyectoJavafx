@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -61,6 +62,8 @@ public class Agregarcategorias implements Initializable {
     private Label lbcategorias;
     @javafx.fxml.FXML
     private Button btModificar;
+    @javafx.fxml.FXML
+    private AnchorPane pane;
 
     @javafx.fxml.FXML
     public void Eliminar(ActionEvent actionEvent) {
@@ -290,12 +293,14 @@ public class Agregarcategorias implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pane.getStylesheets().add(getClass().getResource("css/escenaproductos.css").toExternalForm());
         tview.getSelectionModel().getSelectedItems().addListener(selectorTablaCategorias);
         Habilitar(true);
         modificarregistro.setVisible(false);
         cargar();
         btModificar.setDisable(true);
         del.setDisable(true);
+
     }
 
     private ObservableList<Categoria> lista = FXCollections.observableArrayList();

@@ -17,7 +17,7 @@
    <children>
       <Pane fx:id="gananciasaño" prefHeight="1053.0" prefWidth="1920.0">
          <children>
-            <Pane layoutX="63.0" layoutY="264.0" prefHeight="364.0" prefWidth="454.0" style="-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 5; -fx-border-radius: 55; -fx-background-radius: 60;">
+            <Pane fx:id="pangananciasaño" layoutX="63.0" layoutY="102.0" onMouseClicked="#tgaño" prefHeight="772.0" prefWidth="454.0" style="-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 5; -fx-border-radius: 55; -fx-background-radius: 60;">
                <effect>
                   <DropShadow height="35.66" radius="16.595" spread="0.51" width="32.72">
                      <color>
@@ -68,6 +68,27 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
+                  <Label fx:id="meses" alignment="TOP_LEFT" layoutX="22.0" layoutY="298.0" prefHeight="448.0" prefWidth="413.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.6540284360189572" endY="0.8530805687203792" startY="0.6682464454976303">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.004081383813172579" green="0.23808073997497559" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
                </children>
             </Pane>
             <Button layoutX="130.0" layoutY="923.0" mnemonicParsing="false" onAction="#regresar" prefHeight="67.0" prefWidth="337.0" text="Regresar">
@@ -75,7 +96,7 @@
                   <Font size="33.0" />
                </font>
             </Button>
-            <LineChart fx:id="graficameses" layoutX="573.0" layoutY="31.0" prefHeight="875.0" prefWidth="1285.0" title="Ganancias año">
+            <LineChart fx:id="graficameses" layoutX="573.0" layoutY="31.0" legendVisible="false" prefHeight="875.0" prefWidth="1285.0" title="Ganancias año">
               <xAxis>
                 <CategoryAxis animated="false" side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
@@ -105,7 +126,7 @@
                   <NumberAxis fx:id="ymes" animated="false" side="LEFT" tickLabelFill="WHITE" />
                </yAxis>
             </LineChart>
-            <Pane layoutX="69.0" layoutY="400.0" prefHeight="360.0" prefWidth="454.0" style="-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 5; -fx-border-radius: 55; -fx-background-radius: 60;">
+            <Pane fx:id="gananciasmeses" layoutX="69.0" layoutY="185.0" onMouseClicked="#tgmeses" prefHeight="818.0" prefWidth="454.0" style="-fx-background-color: #1f1f1f; -fx-border-color: white; -fx-border-width: 5; -fx-border-radius: 55; -fx-background-radius: 60;">
                <effect>
                   <DropShadow height="35.66" radius="19.525" spread="0.47" width="44.44">
                      <color>
@@ -161,6 +182,27 @@
                      <effect>
                         <DropShadow />
                      </effect>
+                  </Label>
+                  <Label fx:id="dias" alignment="TOP_LEFT" layoutX="32.0" layoutY="302.0" prefHeight="501.0" prefWidth="398.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.6540284360189572" endY="0.8530805687203792" startY="0.6682464454976303">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.004081383813172579" green="0.23808073997497559" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
                   </Label>
                </children>
             </Pane>

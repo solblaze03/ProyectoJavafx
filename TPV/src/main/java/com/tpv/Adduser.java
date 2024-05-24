@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -51,6 +52,8 @@ public class Adduser implements Initializable{
     private Button agregarUsuario;
     @FXML
     private Button eliminar;
+    @FXML
+    private AnchorPane pane;
 
 
     @FXML
@@ -116,6 +119,7 @@ static Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pane.getStylesheets().add(getClass().getResource("css/escenaproductos.css").toExternalForm());
         tview.getSelectionModel().getSelectedItems().addListener(selectorTablaUsuarios);
         users.clear();
         buscar();

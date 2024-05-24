@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Agregarcategorias">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="689.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Agregarcategorias">
    <children>
       <TableView fx:id="tview" layoutY="86.0" prefHeight="434.0" prefWidth="319.0">
          <columns>
@@ -17,7 +17,7 @@
             <TableColumn fx:id="Categoria" prefWidth="184.800048828125" text="Categoria" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="147.0" layoutY="14.0" prefHeight="18.0" prefWidth="384.0" text="Categorias agregadas">
+      <Label alignment="CENTER" layoutX="147.0" layoutY="14.0" prefHeight="18.0" prefWidth="384.0" text="Categorias agregadas" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
@@ -28,22 +28,22 @@
       <Button fx:id="btModificar" layoutX="149.0" layoutY="50.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
       <Button fx:id="regresar" layoutX="289.0" layoutY="50.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
       <ImageView fx:id="Imagen" fitHeight="182.0" fitWidth="268.0" layoutX="369.0" layoutY="90.0" pickOnBounds="true" />
-      <TextField fx:id="tfnombre" layoutX="488.0" layoutY="340.0" />
-      <Label layoutX="350.0" layoutY="343.0" text="Nombre Categoria:">
+      <TextField fx:id="tfnombre" layoutX="488.0" layoutY="340.0" style="-fx-background-color: transparent;" />
+      <Label layoutX="350.0" layoutY="343.0" text="Nombre Categoria:" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="350.0" layoutY="286.0" text="ID categoria:">
+      <Label layoutX="350.0" layoutY="286.0" text="ID categoria:" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="tfidcategoria" layoutX="487.0" layoutY="286.0" />
+      <TextField fx:id="tfidcategoria" layoutX="487.0" layoutY="286.0" style="-fx-background-color: transparent;" />
       <Button fx:id="addimagen" layoutX="385.0" layoutY="394.0" mnemonicParsing="false" onAction="#addImagen" prefHeight="42.0" prefWidth="242.0" text="Agregar Imagen" />
       <Button fx:id="Agregar" layoutX="387.0" layoutY="447.0" mnemonicParsing="false" onAction="#Agregar" prefHeight="56.0" prefWidth="242.0" text="Registrar categoria" />
       <Button fx:id="modificarregistro" layoutX="388.0" layoutY="448.0" mnemonicParsing="false" onAction="#ModificarRegistro" prefHeight="56.0" prefWidth="242.0" text="Modificar" />
-      <Label fx:id="lbcategorias" layoutX="371.0" layoutY="39.0" prefHeight="42.0" prefWidth="235.0" text="Presiona un a fila columna de la tabla para modificarla." wrapText="true">
+      <Label fx:id="lbcategorias" layoutX="371.0" layoutY="39.0" prefHeight="42.0" prefWidth="235.0" text="Presiona un a fila columna de la tabla para modificarla." textFill="WHITE" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>

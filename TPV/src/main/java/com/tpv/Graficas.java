@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,13 +13,12 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,6 +57,14 @@ public class Graficas implements Initializable {
     private Label gananciasanyo;
     @FXML
     private LineChart graficameses;
+    @FXML
+    private Pane gananciasmeses;
+    @FXML
+    private Pane pangananciasaño;
+    @FXML
+    private Label meses;
+    @FXML
+    private Label dias;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,6 +108,7 @@ public class Graficas implements Initializable {
 
     }
     private Timeline timeline;
+    private String linea = "";
 
     public void cargarMesesYear(){
         try {
@@ -111,16 +120,25 @@ public class Graficas implements Initializable {
             PreparedStatement ps2 = Conn.con().prepareStatement(sqlgananciasmeses);
             ps2.setInt(1,año);
             ResultSet rs = ps2.executeQuery();
+            DecimalFormat formatter = new DecimalFormat("#,###.00");
             while (rs.next()){
                 series1.getData().add(new XYChart.Data<>(fechas[rs.getInt("mes")-1] + "", rs.getInt("suma") ));
-
+                //Tooltip tooltip = new Tooltip("Día: " + rs.getInt("dia") + "\nGanancia: " + rs.getDouble("suma"));
+                //Tooltip.install(dataPoint.getNode(), tooltip);
+                linea += fechas[rs.getInt("mes")-1]  +" "+ formatter.format(rs.getInt("suma"))+"€\n";
             }
+            meses.setText(linea);
+            tooltip = new Tooltip(linea);
+            tooltip.setStyle("-fx-font-size:20;");
+            Tooltip.install(pangananciasaño, tooltip);
             graficameses.getData().add(series1);
 
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+    private String lineameses = "";
+    private Tooltip tooltip;
     public void cargarMes(){
         try {
 
@@ -138,12 +156,15 @@ public class Graficas implements Initializable {
             int ultimodia = calendar.get(Calendar.DAY_OF_MONTH);
             ps.setInt(1,meses);
             ResultSet rs = ps.executeQuery();
-
+            DecimalFormat formatter = new DecimalFormat("#,###.00");
             while (rs.next()){
                 series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getInt("suma") ));
-
+                lineameses += "Dia "+rs.getInt("dia") + " "+ formatter.format(rs.getInt("suma"))+"€\n";
             }
-            series.setName("Mayo");
+            dias.setText(lineameses);
+            tooltip = new Tooltip(lineameses);
+            tooltip.setStyle("-fx-font-size:20;");
+            Tooltip.install(gananciasmeses, tooltip);
 
             mes.getData().add(series);
         }catch (SQLException e){
@@ -187,11 +208,18 @@ public class Graficas implements Initializable {
 
                 ResultSet rs = ps.executeQuery();
                 boolean registros = false;
+                DecimalFormat formatter = new DecimalFormat("#,###.00");
+                lineameses = "";
                 while (rs.next()){
                     series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getInt("suma") ));
                     registros = true;
-
+                    lineameses += "Dia "+rs.getInt("dia") + " "+ formatter.format(rs.getInt("suma"))+"€\n";
                 }
+                dias.setText(lineameses);
+                Tooltip tooltip = new Tooltip(lineameses);
+                System.out.println(tooltip.getText());
+                tooltip.setStyle("-fx-font-size:20;");
+                Tooltip.install(gananciasmeses, tooltip);
 
                 String sql1 = "select  sum(total) as suma from factura join detallefactura using(idfactura) where EXTRACT(MONTH FROM hora_compra) = ?;";
 
@@ -202,14 +230,14 @@ public class Graficas implements Initializable {
                 ResultSet rs1 = ps1.executeQuery();
                 if(rs1.next()) {
 
-                    DecimalFormat formatter = new DecimalFormat("#,###.00");
+
                     gananciasMes.setText(formatter.format(rs1.getDouble("suma"))+"€");
                 }
 
                 mes.getData().clear();
 
                 if (registros) {
-                    DecimalFormat formatter = new DecimalFormat("#,###.00");
+
 
                     mes.getData().add(series);
                 }
@@ -253,5 +281,31 @@ public class Graficas implements Initializable {
         translate1.setDuration(Duration.millis(1000));
         translate1.setByY(1090);
         translate1.play();
+    }
+
+    @FXML
+    public void tgmeses(Event event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ganancias meses");
+        TextArea ta = new TextArea(lineameses);
+        ta.setEditable(false);
+        ta.setWrapText(true);
+        alert.getDialogPane().setContent(ta);
+        alert.showAndWait();
+
+
+    }
+
+    @FXML
+    void tgaño(Event event) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ganancias meses");
+        TextArea ta = new TextArea(linea);
+        ta.setEditable(false);
+        ta.setWrapText(true);
+        alert.getDialogPane().setContent(ta);
+        alert.showAndWait();
+
     }
 }

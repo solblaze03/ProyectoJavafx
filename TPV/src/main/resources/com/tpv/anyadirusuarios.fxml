@@ -5,26 +5,45 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Adduser">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="677.0" style="-fx-background-color: #1f1f1f;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Adduser">
    <children>
-      <TableView fx:id="tview" layoutY="86.0" prefHeight="434.0" prefWidth="677.0">
+      <TableView fx:id="tview" layoutY="104.0" prefHeight="416.0" prefWidth="677.0">
         <columns>
           <TableColumn fx:id="usuario" prefWidth="214.0" text="Usuario" />
           <TableColumn fx:id="privilegios" prefWidth="255.0" text="Privilegios" />
             <TableColumn fx:id="DNI" prefWidth="207.0" text="DNI" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="147.0" layoutY="14.0" prefHeight="18.0" prefWidth="384.0" text="Usuarios agregados">
+      <Label alignment="CENTER" layoutX="147.0" layoutY="13.0" prefHeight="36.0" prefWidth="384.0" text="Usuarios agregados">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="27.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color green="0.4333333373069763" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <Button fx:id="agregarUsuario" layoutX="22.0" layoutY="50.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar" />
-      <Button fx:id="cargaTabla" layoutX="94.0" layoutY="50.0" mnemonicParsing="false" onAction="#cargarTabla" text="Actualizar" />
-      <Button fx:id="eliminar" layoutX="251.0" layoutY="50.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
-      <Button fx:id="Modificar" layoutX="172.0" layoutY="50.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
-      <Button layoutX="322.0" layoutY="50.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
+      <Button fx:id="agregarUsuario" layoutX="22.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar" />
+      <Button fx:id="cargaTabla" layoutX="94.0" layoutY="71.0" mnemonicParsing="false" onAction="#cargarTabla" text="Actualizar" />
+      <Button fx:id="eliminar" layoutX="251.0" layoutY="71.0" mnemonicParsing="false" onAction="#Eliminar" text="Eliminar" />
+      <Button fx:id="Modificar" layoutX="172.0" layoutY="71.0" mnemonicParsing="false" onAction="#Modificar" text="Modificar" />
+      <Button layoutX="322.0" layoutY="71.0" mnemonicParsing="false" onAction="#Regresar" text="Regresar" />
    </children>
 </AnchorPane>
