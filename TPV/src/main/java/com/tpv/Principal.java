@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class Principal extends Application {
 
     static Stage stage;
-    static Scene scene,scene1,escenaaddusers,scenacategorias,escenaproductos,graficas;
+    static Scene scene,scene1,escenaaddusers,scenacategorias,escenaproductos,graficas,factura;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -107,6 +107,22 @@ public class Principal extends Application {
             stage.setScene(graficas);
             stage.setResizable(true);
             stage.setFullScreen(true);
+        }catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("error graficas");
+            alert.setContentText(e.getMessage());
+            alert.show();
+            e.printStackTrace();
+        }
+
+    }
+    public static void buscarFactura() {
+        try {
+            FXMLLoader fxfactura = new FXMLLoader(Principal.class.getResource("Buscarfactura.fxml"));
+            factura = new Scene(fxfactura.load());
+            stage.setScene(factura);
+            stage.setResizable(false);
+
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("error graficas");

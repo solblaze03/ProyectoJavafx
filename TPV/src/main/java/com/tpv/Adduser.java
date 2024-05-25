@@ -64,7 +64,7 @@ public class Adduser implements Initializable{
         try {
 
             Statement st = Conn.con().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Super Administrador'");
+            ResultSet rs = st.executeQuery("SELECT * FROM usuarios WHERE privilegios <> 'Super Tux'");
             while (rs.next()){
                 users.add(new Usuario(rs.getString("dni"),rs.getString("nombre"),rs.getString("privilegios"),rs.getString("url_imagen"),rs.getString("contrasenya")));
             }
@@ -169,12 +169,33 @@ static Stage stage;
     public void Eliminar(ActionEvent actionEvent) {
 
         try {
-            String sql = "DELETE FROM usuarios WHERE (dni = ? );";
-            PreparedStatement ps = Conn.con().prepareStatement(sql);
-            ps.setString(1,moduser.getDNI());
-            ps.executeUpdate();
-            users.clear();
-            buscar();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar registro");
+            alert.setHeaderText("Estas seguro de eliminar el usuario "+moduser.getNombre());
+            Optional<ButtonType> list = alert.showAndWait();
+            if(list.isPresent()){
+                if (list.get() == ButtonType.OK){
+                    String sql = "DELETE FROM usuarios WHERE (dni = ? );";
+                    PreparedStatement ps = Conn.con().prepareStatement(sql);
+                    ps.setString(1,moduser.getDNI());
+                    ps.executeUpdate();
+                    users.clear();
+                    buscar();
+                    Alert alertconfirm = new Alert(Alert.AlertType.INFORMATION);
+                    alertconfirm.setTitle("Eliminar registro");
+                    alertconfirm.setHeaderText("El usuario "+moduser.getNombre()+" se ha eliminado correctamente");
+                    alertconfirm.show();
+                }else{
+                    Alert alertconfirm = new Alert(Alert.AlertType.INFORMATION);
+                    alertconfirm.setTitle("Eliminar registro");
+                    alertconfirm.setHeaderText("El usuario "+moduser.getNombre()+" no se ha eliminado");
+                    alertconfirm.show();
+                }
+
+
+            }
+
+
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }

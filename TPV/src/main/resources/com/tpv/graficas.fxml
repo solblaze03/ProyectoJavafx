@@ -26,9 +26,9 @@
                   </DropShadow>
                </effect>
                <children>
-                  <Label alignment="CENTER" layoutY="41.0" prefHeight="170.0" prefWidth="431.0" text="Total ganancias año" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="comprasaño" alignment="CENTER" layoutY="41.0" prefHeight="170.0" prefWidth="454.0" text="Total compras año" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="System Bold" size="47.0" />
+                        <Font name="System Bold" size="53.0" />
                      </font>
                      <textFill>
                         <LinearGradient endX="1.0" endY="1.0">
@@ -96,7 +96,7 @@
                   <Font size="33.0" />
                </font>
             </Button>
-            <LineChart fx:id="graficameses" layoutX="573.0" layoutY="31.0" legendVisible="false" prefHeight="875.0" prefWidth="1285.0" title="Ganancias año">
+            <LineChart fx:id="graficameses" layoutX="626.0" layoutY="31.0" legendVisible="false" prefHeight="875.0" prefWidth="1203.0">
               <xAxis>
                 <CategoryAxis animated="false" side="BOTTOM" tickLabelFill="WHITE" />
               </xAxis>
@@ -109,6 +109,16 @@
                   <Font size="28.0" />
                </font>
             </Button>
+            <Button layoutX="562.0" layoutY="289.0" mnemonicParsing="false" onAction="#antesaño" prefHeight="200.0" prefWidth="60.0" text="&lt;-">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Button layoutX="1837.0" layoutY="334.0" mnemonicParsing="false" onAction="#despuesaño" prefHeight="200.0" prefWidth="61.0" text="-&gt;">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane fx:id="escena2" layoutX="-16.0" layoutY="1066.0" prefHeight="1053.0" prefWidth="1952.0" style="-fx-background-color: #1f1f1f;">
@@ -118,7 +128,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <LineChart fx:id="mes" layoutX="624.0" layoutY="140.0" legendVisible="false" prefHeight="887.0" prefWidth="1242.0" title="Ganacias Mes">
+            <LineChart fx:id="mes" layoutX="624.0" layoutY="140.0" legendVisible="false" prefHeight="887.0" prefWidth="1242.0">
                <xAxis>
                   <CategoryAxis animated="false" side="BOTTOM" tickLabelFill="WHITE" fx:id="xmes" />
                </xAxis>
@@ -159,9 +169,9 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
-                  <Label fx:id="diaMes" alignment="CENTER" layoutX="13.0" layoutY="23.0" prefHeight="170.0" prefWidth="431.0" text="Total ganancias Septiembre" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="diaMes" alignment="CENTER" layoutX="13.0" layoutY="23.0" prefHeight="170.0" prefWidth="431.0" text="Total compras Septiembre" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font name="System Bold" size="36.0" />
+                        <Font name="System Bold" size="44.0" />
                      </font>
                      <textFill>
                         <LinearGradient endX="1.0" endY="0.09478672985781988" startX="0.41706161137440756" startY="0.42654028436018954">
@@ -206,12 +216,12 @@
                   </Label>
                </children>
             </Pane>
-            <Button layoutX="563.0" layoutY="471.0" mnemonicParsing="false" onAction="#antes" prefHeight="200.0" prefWidth="53.0" text="&lt;">
+            <Button layoutX="563.0" layoutY="471.0" mnemonicParsing="false" onAction="#antes" prefHeight="200.0" prefWidth="61.0" text="&lt;-">
                <font>
                   <Font size="23.0" />
                </font>
             </Button>
-            <Button layoutX="1876.0" layoutY="470.0" mnemonicParsing="false" onAction="#despues" prefHeight="216.0" prefWidth="53.0" text="&gt;">
+            <Button layoutX="1869.0" layoutY="470.0" mnemonicParsing="false" onAction="#despues" prefHeight="216.0" prefWidth="60.0" text="-&gt;">
                <font>
                   <Font size="23.0" />
                </font>

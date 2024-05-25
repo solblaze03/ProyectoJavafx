@@ -18,10 +18,13 @@
           <TableColumn fx:id="privilegios" prefWidth="255.0" text="Privilegios" />
             <TableColumn fx:id="DNI" prefWidth="207.0" text="DNI" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Label alignment="CENTER" layoutX="147.0" layoutY="13.0" prefHeight="36.0" prefWidth="384.0" text="Usuarios agregados">
+      <Label alignment="CENTER" layoutX="147.0" layoutY="8.0" prefHeight="58.0" prefWidth="394.0" text="Usuarios agregados">
          <font>
-            <Font name="System Bold" size="27.0" />
+            <Font name="Tahoma Bold" size="30.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">

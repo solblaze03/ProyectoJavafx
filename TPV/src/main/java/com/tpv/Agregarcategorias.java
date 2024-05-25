@@ -58,8 +58,7 @@ public class Agregarcategorias implements Initializable {
     private Button del;
     @javafx.fxml.FXML
     private Button regresar;
-    @javafx.fxml.FXML
-    private Label lbcategorias;
+
     @javafx.fxml.FXML
     private Button btModificar;
     @javafx.fxml.FXML
@@ -118,8 +117,8 @@ public class Agregarcategorias implements Initializable {
     @javafx.fxml.FXML
     public void Modificar(ActionEvent actionEvent) {
         if (!modificar) {
-            lbcategorias.setText("Estas en modo edición.");
-            lbcategorias.setStyle("-fx-text-fill: red;");
+
+
             Agregar.setVisible(false);
             modificarregistro.setVisible(true);
             agregarCategoria.setDisable(true);
@@ -160,8 +159,7 @@ public class Agregarcategorias implements Initializable {
             modificar = true;
             btModificar.setText("Salir");
         }else{
-            lbcategorias.setText("Presiona un a fila columna de la tabla para modificarla.");
-            lbcategorias.setStyle("-fx-text-fill: black;");
+
             modificarregistro.setDisable(true);
             modificarregistro.setVisible(true);
             agregarCategoria.setDisable(false);
@@ -251,10 +249,6 @@ public class Agregarcategorias implements Initializable {
                 urlimagen = file.getAbsolutePath();
                 imagen1 = new Image(new FileInputStream(file.getAbsolutePath()));
                 Imagen.setImage(imagen1);
-            }else{
-                file = new File(urlimagen);
-                System.out.println(file.getAbsolutePath());
-                Imagen.setImage(imagen1);
             }
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
@@ -331,13 +325,13 @@ public class Agregarcategorias implements Initializable {
             agregarCategoria.setText("Salir");
             btModificar.setDisable(true);
             cargaTabla.setDisable(true);
-            lbcategorias.setText("");
+
             del.setDisable(true);
             saliragregar = true;
         }else {
             agregarCategoria.setText("Agregar");
 
-            lbcategorias.setText("Presiona un a fila columna de la tabla para modificarla.");
+
             cargaTabla.setDisable(false);
             tview.setDisable(false);
             Imagen.setImage(null);

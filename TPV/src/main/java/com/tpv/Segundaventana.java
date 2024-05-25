@@ -62,10 +62,18 @@ public class Segundaventana implements Initializable{
         fc.setTitle("Elige una imagen");
         Stage stage = (Stage) buscarUrl.getScene().getWindow();
         file = fc.showOpenDialog(stage);
-        System.out.println(file.getAbsolutePath());
+
+
         try {
-            Image imagen1 = new Image(new FileInputStream(file.getAbsolutePath()));
-            imagen.setImage(imagen1);
+            if(file != null) {
+                Image imagen1 = new Image(new FileInputStream(file.getAbsolutePath()));
+                imagen.setImage(imagen1);
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No has elegido ninguna imagen");
+                alert.show();
+            }
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }

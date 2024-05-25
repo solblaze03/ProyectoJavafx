@@ -139,6 +139,7 @@ public class controllerpantalla implements Initializable {
     private ObservableList<Productos> list2 = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         cargartabla("");
         double totalcaja = 0;
         double suma1 = 0;
@@ -180,7 +181,7 @@ public class controllerpantalla implements Initializable {
         tviewgrande.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Productos productoss = tviewgrande.getSelectionModel().getSelectedItem();
-                System.out.println(productoss.getCantidad());
+
                 if (productoss != null) {
                     System.out.println(productoss.getCantidad());
                     agregarTviewPequeño(productoss);
@@ -193,13 +194,32 @@ public class controllerpantalla implements Initializable {
 
                 Productos productos1 = tviewpequeño.getSelectionModel().getSelectedItem();
                 for (int i = 0; i < list2.size(); i++) {
-                    list2.get(i).
+                    if (list2.get(i).getCodigosbarra().equals(productos1.getCodigosbarra())){
+                        if(list2.get(i).getCantidad() == 1){
+                            //double total = ((list2.get(i).getCantidad() - 1) * list2.get(i).getTotal()) / list2.get(i).getCantidad();
+                            //System.out.println(total);
+                            double preciounidad = (list2.get(i).getTotal()) / list2.get(i).getCantidad();
+
+                            totalfactura -= preciounidad;
+                            totalcajero.setText(totalfactura+"");
+                            list2.remove(i);
+                        }else {
+                            double total = ((list2.get(i).getCantidad() - 1) * list2.get(i).getTotal()) / list2.get(i).getCantidad();
+                            list2.get(i).setTotal(total);
+                            list2.get(i).setCantidad((int) list2.get(i).getCantidad() - 1);
+                            System.out.println(("1 "+ Double.parseDouble(totalcajero.getText())));
+                            System.out.println("total "+total);
+
+                            double preciounidad = (1 * list2.get(i).getTotal()) / list2.get(i).getCantidad();
+                            System.out.println("Precio unidad: "+preciounidad);
+                            totalcajero.setText( (totalfactura - preciounidad + ""));
+                            totalfactura -=  preciounidad ;
+                            list2.set(i, list2.get(i));
+                        }
+                    }
                 }
             }
-
         });
-
-
     }
 
     private String cadnumero = "";
@@ -214,20 +234,14 @@ public class controllerpantalla implements Initializable {
 
         for (int i = 0; i < list2.size(); i++) {
             if (list2.get(i).getCodigosbarra().equals(producto.getCodigosbarra())){
-
-
                 numero = i;
                 esta = true;
             }
         }
 
         if(!esta) {
-
-
-
                 if(producto.getDcto() == 0) {
 
-                    nombre.setText(numero + "");
                     list2.add(producto);
                     tunidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
                     tproducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -235,19 +249,17 @@ public class controllerpantalla implements Initializable {
                     ttotal.setCellValueFactory(new PropertyValueFactory<>("total"));
                     totalfactura += producto.getPrecio();
                     tviewpequeño.setItems(list2);
-
                     numprod = list2.indexOf(producto);
                 }else{
 
                     producto.setTotal(producto.getPrecio() -  (producto.getPrecio() * producto.getDcto() / 100));
                     System.out.println(producto.getTotal());
-                    nombre.setText(numero + "");
+
                     list2.add(producto);
                     tunidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
                     tproducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
                     tprecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
                     ttotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-
                     tviewpequeño.setItems(list2);
                     totalfactura += producto.getPrecio() - ((producto.getPrecio() * producto.getDcto() / 100));
                 }
@@ -1044,7 +1056,6 @@ public class controllerpantalla implements Initializable {
 
     @FXML
     public void fullscreen(ActionEvent actionEvent) {
-
         Principal.fullScreen();
     }
 

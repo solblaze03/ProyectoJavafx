@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="1013.0" stylesheets="@css/manejotpv.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tpv.Manejotpv">
@@ -20,11 +22,32 @@
                </image>
             </ImageView>
             <Label layoutX="110.0" layoutY="61.0" textFill="WHITE" />
-            <Label fx:id="welcome" alignment="CENTER" layoutX="68.0" layoutY="50.0" prefHeight="150.0" prefWidth="478.0" text="Bienvenido de nuevo akkfkfsdfdfs" textFill="WHITE" wrapText="true">
+            <Label fx:id="welcome" alignment="CENTER" layoutX="68.0" layoutY="50.0" prefHeight="150.0" prefWidth="508.0" text="Bienvenido de nuevo akkfkfsdfdfs" wrapText="true">
                <font>
-                  <Font size="50.0" />
+                  <Font name="System Bold" size="45.0" />
                </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.03840000182390213" green="0.5035885572433472" blue="0.9599999785423279" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
             </Label>
+            <Button fx:id="Salir1" layoutX="592.0" layoutY="511.0" mnemonicParsing="false" onAction="#factura" prefHeight="70.0" prefWidth="180.0" text="Buscar factura" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane layoutX="678.0" layoutY="16.0" prefHeight="198.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 15; -fx-border-width: 3;">
@@ -65,7 +88,7 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>
-      <Button fx:id="Salir" layoutX="694.0" layoutY="506.0" mnemonicParsing="false" onAction="#Salir" prefHeight="70.0" prefWidth="180.0" text="Salir Sesion" wrapText="true">
+      <Button fx:id="Salir" layoutX="793.0" layoutY="506.0" mnemonicParsing="false" onAction="#Salir" prefHeight="70.0" prefWidth="180.0" text="Salir Sesion" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Button>

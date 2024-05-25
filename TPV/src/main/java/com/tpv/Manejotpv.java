@@ -34,7 +34,8 @@ public class Manejotpv implements Initializable {
     private AnchorPane pane;
     @FXML
     private Label welcome;
-
+    @FXML
+    private Button Salir1;
 
 
     @javafx.fxml.FXML
@@ -84,5 +85,10 @@ public class Manejotpv implements Initializable {
     @FXML
     public void Ventas(ActionEvent actionEvent) {
         Principal.graficas();
+    }
+
+    @FXML
+    public void factura(ActionEvent actionEvent) {
+        Principal.buscarFactura();
     }
 }
