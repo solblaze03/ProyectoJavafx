@@ -36,6 +36,8 @@ public class Manejotpv implements Initializable {
     private Label welcome;
     @FXML
     private Button Salir1;
+    @FXML
+    private Button agregarcategorias;
 
 
     @javafx.fxml.FXML
@@ -62,8 +64,12 @@ public class Manejotpv implements Initializable {
         if("Usuario".equals(user.getPrivilegios()) ){
             Agregar.setDisable(true);
             agragarProductos.setDisable(true);
+            agregarcategorias.setDisable(true);
         }else{
             agragarProductos.setDisable(false);
+        }
+        if("Admin".equals(user.getPrivilegios())){
+            Agregar.setDisable(true);
         }
 
         pane.getStylesheets().add(getClass().getResource("css/manejotpv.css").toExternalForm());

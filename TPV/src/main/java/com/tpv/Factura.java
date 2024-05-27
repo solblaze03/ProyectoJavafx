@@ -45,6 +45,8 @@ public class Factura implements Initializable {
     private ObservableList <facturas> facturas = FXCollections.observableArrayList();
     @javafx.fxml.FXML
     private TableColumn fecha;
+    @javafx.fxml.FXML
+    private Button Regresar;
 
     @javafx.fxml.FXML
     public void buscar(ActionEvent actionEvent) {
@@ -102,5 +104,10 @@ public class Factura implements Initializable {
         pane.getStylesheets().add(getClass().getResource("css/escenaproductos.css").toExternalForm());
 
         
+    }
+
+    @javafx.fxml.FXML
+    public void Regresar(ActionEvent actionEvent) {
+        Principal.escenaManejoTpv();
     }
 }

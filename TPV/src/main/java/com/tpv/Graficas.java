@@ -68,23 +68,26 @@ public class Graficas implements Initializable {
     @FXML
     private Label comprasaño;
     private int año;
+    @FXML
+    private Label dias1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pane.getStylesheets().add(getClass().getResource("css/grafica.css").toExternalForm());
         try {
             // ganancias mes
-            String sql = "select  sum(total) as suma from factura join detallefactura using(idfactura) where EXTRACT(MONTH FROM hora_compra) = ?;";
+            String sql = "select  sum(total) as suma from factura join detallefactura using(idfactura) where EXTRACT(MONTH FROM hora_compra) = ? AND EXTRACT(Year FROM hora_compra) = ?;";
             nummes  = LocalDate.now().getMonth().getValue();
             PreparedStatement ps = Conn.con().prepareStatement(sql);
             ps.setInt(1,nummes);
+            ps.setInt(2,LocalDate.now().getYear());
             ResultSet rs = ps.executeQuery();
             DecimalFormat formatter = new DecimalFormat("#,###.00");
             if(rs.next()) {
 
                 gananciasMes.setText(formatter.format(rs.getDouble("suma"))+"€");
             }
-            diaMes.setText("Total ganancias "+fechas[nummes-1]);
+            diaMes.setText("Total ganancias "+fechas[nummes-1] +" de "+LocalDate.now().getYear());
             cargarMes();
             //ganancias mes
 
@@ -149,7 +152,7 @@ public class Graficas implements Initializable {
             XYChart.Series series = new XYChart.Series();
             String sql = "select  EXTRACT(DAY FROM hora_compra) as dia ,EXTRACT(MONTH FROM hora_compra) as mes,sum(total) as suma\n" +
                     "from factura join detallefactura using(idfactura) \n" +
-                    "group by dia , mes having EXTRACT(MONTH FROM hora_compra)= ?;";
+                    "group by dia , mes having EXTRACT(MONTH FROM hora_compra)= ?  ;";
             PreparedStatement ps = Conn.con().prepareStatement(sql);
 
             Calendar calendar = Calendar.getInstance();
@@ -159,13 +162,31 @@ public class Graficas implements Initializable {
             int meses = LocalDate.now().getMonth().getValue();
             int ultimodia = calendar.get(Calendar.DAY_OF_MONTH);
             ps.setInt(1,meses);
+            //ps.setInt(2,LocalDate.now().getYear());
             ResultSet rs = ps.executeQuery();
             DecimalFormat formatter = new DecimalFormat("#,###.00");
+            int cont = 0;
+            String lineameses1 ="";
+            String lineameses2 = "";
+            boolean cambio = false;
             while (rs.next()){
                 series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getDouble("suma") ));
-                lineameses += "Dia "+rs.getInt("dia") + " "+ formatter.format(rs.getDouble("suma"))+"€\n";
+                if(!cambio) {
+                    lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses1 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    cambio = true;
+                }else{
+                    lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses2 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    cambio = false;
+                }
             }
-            dias.setText(lineameses);
+
+                dias.setText(lineameses1);
+            System.out.println("1: "+lineameses1);
+            System.out.println("2: "+lineameses2);
+                dias1.setText(lineameses2);
+
             tooltip = new Tooltip(lineameses);
             tooltip.setStyle("-fx-font-size:20;");
             Tooltip.install(gananciasmeses, tooltip);
@@ -200,7 +221,7 @@ public class Graficas implements Initializable {
         try {
 
             if(i >= 1 && i <= 12) {
-                diaMes.setText("Total compras "+fechas[nummes-1]);
+                diaMes.setText("Total compras "+fechas[nummes-1]+" de "+LocalDate.now().getYear());
                 XYChart.Series series = new XYChart.Series();
 
                 String sql = "select  EXTRACT(DAY FROM hora_compra) as dia ,EXTRACT(MONTH FROM hora_compra) as mes,sum(total) as suma\n" +
@@ -214,23 +235,49 @@ public class Graficas implements Initializable {
                 boolean registros = false;
                 DecimalFormat formatter = new DecimalFormat("#,###.00");
                 lineameses = "";
+                boolean cambio = false;
+                String lineameses1 = "";
+                String lineameses2 = "";
+                /*
                 while (rs.next()){
                     series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getDouble("suma") ));
                     registros = true;
                     lineameses += "Dia "+rs.getInt("dia") + " "+ formatter.format(rs.getDouble("suma"))+"€\n";
                 }
-                dias.setText(lineameses);
+
+                 */
+
+                while (rs.next()){
+                    series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getDouble("suma") ));
+                    registros = true;
+                    if(!cambio) {
+                        lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        lineameses1 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+
+                        cambio = true;
+                    }else{
+                        lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+
+                        lineameses2 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        cambio = false;
+                    }
+                }
+                dias.setText(lineameses1);
+                dias1.setText(lineameses2);
+
+
                 Tooltip tooltip = new Tooltip(lineameses);
                 System.out.println(tooltip.getText());
                 tooltip.setStyle("-fx-font-size:20;");
                 Tooltip.install(gananciasmeses, tooltip);
 
-                String sql1 = "select  sum(total) as suma from factura join detallefactura using(idfactura) where EXTRACT(MONTH FROM hora_compra) = ?;";
+                String sql1 = "select  sum(total) as suma from factura join detallefactura using(idfactura) where EXTRACT(MONTH FROM hora_compra) = ?  AND EXTRACT(Year FROM hora_compra) = ? ;";
 
 
                 PreparedStatement ps1 = Conn.con().prepareStatement(sql1);
                 System.out.println("mes "+nummes);
                 ps1.setInt(1,nummes);
+                ps1.setInt(2,LocalDate.now().getYear());
                 ResultSet rs1 = ps1.executeQuery();
                 if(rs1.next()) {
 
@@ -254,6 +301,7 @@ public class Graficas implements Initializable {
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
@@ -270,7 +318,6 @@ public class Graficas implements Initializable {
         translate1.setDuration(Duration.millis(1000));
         translate1.setByY(-1090);
         translate1.play();
-
     }
 
     @FXML
@@ -389,6 +436,7 @@ public class Graficas implements Initializable {
                 tooltip.setText("");
                 linea = "";
             }else {
+                comprasaño.setText("Total compras año "+año);
                 meses.setText(linea);
                 tooltip = new Tooltip(linea);
                 tooltip.setStyle("-fx-font-size:20;");

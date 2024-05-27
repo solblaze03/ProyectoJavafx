@@ -145,7 +145,7 @@
                   </DropShadow>
                </effect>
                <children>
-                  <Label fx:id="gananciasMes" alignment="CENTER" layoutX="-2.0" layoutY="231.0" prefHeight="53.0" prefWidth="458.0" text="515.056.156,15 €">
+                  <Label fx:id="gananciasMes" alignment="CENTER" layoutX="-2.0" layoutY="215.0" prefHeight="53.0" prefWidth="458.0" text="515.056.156,15 €">
                      <font>
                         <Font name="System Italic" size="36.0" />
                      </font>
@@ -193,9 +193,30 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Label fx:id="dias" alignment="TOP_LEFT" layoutX="32.0" layoutY="302.0" prefHeight="501.0" prefWidth="398.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrapText="true">
+                  <Label fx:id="dias" alignment="TOP_LEFT" layoutX="32.0" layoutY="308.0" prefHeight="485.0" prefWidth="188.0" wrapText="true">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="19.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.6540284360189572" endY="0.8530805687203792" startY="0.6682464454976303">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.004081383813172579" green="0.23808073997497559" blue="0.8815789222717285" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label fx:id="dias1" alignment="TOP_LEFT" layoutX="241.0" layoutY="306.0" prefHeight="485.0" prefWidth="188.0" wrapText="true">
+                     <font>
+                        <Font size="19.0" />
                      </font>
                      <textFill>
                         <LinearGradient endX="0.6540284360189572" endY="0.8530805687203792" startY="0.6682464454976303">
