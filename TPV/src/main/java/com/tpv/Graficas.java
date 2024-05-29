@@ -132,7 +132,7 @@ public class Graficas implements Initializable {
                 series1.getData().add(new XYChart.Data<>(fechas[rs.getInt("mes")-1] + "", rs.getDouble("suma") ));
                 //Tooltip tooltip = new Tooltip("Día: " + rs.getInt("dia") + "\nGanancia: " + rs.getDouble("suma"));
                 //Tooltip.install(dataPoint.getNode(), tooltip);
-                linea += fechas[rs.getInt("mes")-1]  +" "+ formatter.format(rs.getDouble("suma"))+"€\n";
+                linea += fechas[rs.getInt("mes")-1]  +" - "+ formatter.format(rs.getDouble("suma"))+"€\n";
             }
             meses.setText(linea);
             tooltip = new Tooltip(linea);
@@ -172,12 +172,12 @@ public class Graficas implements Initializable {
             while (rs.next()){
                 series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getDouble("suma") ));
                 if(!cambio) {
-                    lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
-                    lineameses1 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses1 += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
                     cambio = true;
                 }else{
-                    lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
-                    lineameses2 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
+                    lineameses2 += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
                     cambio = false;
                 }
             }
@@ -251,14 +251,14 @@ public class Graficas implements Initializable {
                     series.getData().add(new XYChart.Data<>(rs.getInt("dia") + "", rs.getDouble("suma") ));
                     registros = true;
                     if(!cambio) {
-                        lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
-                        lineameses1 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        lineameses += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        lineameses1 += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
 
                         cambio = true;
                     }else{
-                        lineameses += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        lineameses += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
 
-                        lineameses2 += "Dia " + rs.getInt("dia") + " " + formatter.format(rs.getDouble("suma")) + "€\n";
+                        lineameses2 += "Dia " + rs.getInt("dia") + " - " + formatter.format(rs.getDouble("suma")) + "€\n";
                         cambio = false;
                     }
                 }
@@ -383,7 +383,7 @@ public class Graficas implements Initializable {
                 //Tooltip tooltip = new Tooltip("Día: " + rs.getInt("dia") + "\nGanancia: " + rs.getDouble("suma"));
                 //Tooltip.install(dataPoint.getNode(), tooltip);
                 suma +=rs.getDouble("suma");
-                linea += fechas[rs.getInt("mes")-1]  +" "+ formatter.format(rs.getDouble("suma"))+"€\n";
+                linea += fechas[rs.getInt("mes")-1]  +" - "+ formatter.format(rs.getDouble("suma"))+"€\n";
             }
             if (!registros){
                 comprasaño.setText("Total compras año "+año);
@@ -426,7 +426,7 @@ public class Graficas implements Initializable {
                 series1.getData().add(new XYChart.Data<>(fechas[rs.getInt("mes")-1] + "", rs.getDouble("suma") ));
                 //Tooltip tooltip = new Tooltip("Día: " + rs.getInt("dia") + "\nGanancia: " + rs.getDouble("suma"));
                 //Tooltip.install(dataPoint.getNode(), tooltip);
-                linea += fechas[rs.getInt("mes")-1]  +" "+ formatter.format(rs.getDouble("suma"))+"€\n";
+                linea += fechas[rs.getInt("mes")-1]  +" - "+ formatter.format(rs.getDouble("suma"))+"€\n";
             }
             if (!registros){
                 comprasaño.setText("Total compras año "+año);
