@@ -1,16 +1,16 @@
 _____________________________________________________
 Bienvenido
 
-numero de factura: 111
-Ha sido atendido por Tux
+numero de factura: 119
+Ha sido atendido por Maicol Barragan
 Se puede contactar al siguiente teléfono: +34 747429922
-Compra hecha el 2024/05/25 12:08:21
+Compra hecha el 2024/05/31 16:03:46
 _____________________________________________________
-Cantidad 1 - Producto Xiaomi note 11 - IVA 21 %  - Precio 200,00 € - dcto 0 % 
-Cantidad 1 - Producto Airdots - IVA 21 %  - Precio 35,00 € - dcto 0 % 
-Cantidad 1 - Producto HP i5 - IVA 21 %  - Precio 20,00 € - dcto 0 % 
+Cantidad 1 - Producto Final DAM - IVA 21 %  - Precio 60,06 € - dcto 0 % 
+Cantidad 1 - Producto Nokia indestructible - IVA 4 %  - Precio 35,00 € - dcto 0 % 
+Cantidad 1 - Producto Mando Xbox - IVA 21 %  - Precio 62,00 € - dcto 0 % 
 _______________________________________________________
-Total sin descuento: 255.0
-Total: 255.0
+Total sin descuento: 157.06
+Total: 157.06
 Pago hecho con: Efectivo
 ________________________________________________________

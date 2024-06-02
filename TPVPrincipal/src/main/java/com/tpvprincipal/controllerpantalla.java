@@ -203,6 +203,10 @@ public class controllerpantalla implements Initializable {
                             totalfactura -= preciounidad;
                             totalcajero.setText(totalfactura+"");
                             list2.remove(i);
+                            if(list2.size() == 0){
+                                cobrarfac.setDisable(true);
+                                cobrarefec.setDisable(true);
+                            }
                         }else {
                             double total = ((list2.get(i).getCantidad() - 1) * list2.get(i).getTotal()) / list2.get(i).getCantidad();
                             list2.get(i).setTotal(total);

@@ -140,6 +140,7 @@ public class Billete implements Initializable {
     public void cerrarCaja(ActionEvent actionEvent) {
         cincuentcentimos.cancelEdit();
         cierre = 0.0;
+
         cierre += diezcentimos.getValue() * 0.10;
         cierre += uneuro.getValue() * 1.0;
         cierre += doseuros.getValue() * 2.0;
@@ -151,7 +152,7 @@ public class Billete implements Initializable {
         cierre += diezeuros.getValue() * 10.0;
         cierre += veintecent.getValue() * 0.20;
         cierre += cincuentaeuros.getValue() * 50.0 ;
-
+        cierre += cincuentcentimos.getValue() * 0.50;
 
         cierre = Precision.round(cierre,2);
         System.out.println("Cierre "+cincuentaeuros.getValue());
@@ -171,12 +172,11 @@ public class Billete implements Initializable {
             System.out.println("Entra");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Descuadre en la caja");
-            alert.setHeaderText("Hubo un descuadre de caja de " + (cierre - total) +" euros" );
+            double cierretotal = cierre - total;
+            double cierre = Precision.round(cierretotal,2);
+            alert.setHeaderText("Hubo un descuadre de caja de " + cierre +" euros" );
             alert.showAndWait();
             System.exit(0);
         }
-
-
-
     }
 }

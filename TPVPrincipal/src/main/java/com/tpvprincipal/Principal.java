@@ -44,6 +44,7 @@ public class Principal extends Application {
 
                 stage.show();
             }
+            stage.setTitle("TPV principal");
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
@@ -51,9 +52,6 @@ public class Principal extends Application {
 
 
     }
-
-
-
     /*
     *  Aqui
     *  Para
@@ -63,8 +61,6 @@ public class Principal extends Application {
     *  de
     *  escenas
      */
-
-
     public static void pantallaPrincipal(){
         try {
             FXMLLoader loader = new FXMLLoader(Principal.class.getResource("pantallainicio.fxml"));
@@ -83,6 +79,8 @@ public class Principal extends Application {
             FXMLLoader loader = new FXMLLoader(Principal.class.getResource("cantidaddinero.fxml"));
             scenedinero = new Scene(loader.load());
             stage.setScene(scenedinero);
+            stage.setResizable(false);
+
         }catch (IOException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("IOException");

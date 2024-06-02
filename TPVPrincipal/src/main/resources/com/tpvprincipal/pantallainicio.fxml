@@ -22,7 +22,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="cobrarfac" layoutX="280.0" layoutY="899.0" mnemonicParsing="false" onAction="#cobrarTarjeta" prefHeight="110.0" prefWidth="201.0" text="Cobrar con tarjeta" wrapText="true">
+      <Button fx:id="cobrarfac" layoutX="280.0" layoutY="897.0" mnemonicParsing="false" onAction="#cobrarTarjeta" prefHeight="110.0" prefWidth="201.0" text="Cobrar con tarjeta" wrapText="true">
          <font>
             <Font size="22.0" />
          </font>
@@ -140,7 +140,7 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Label fx:id="totalcajero" layoutX="419.0" layoutY="482.0" text="0.0 €" textFill="WHITE">
+      <Label fx:id="totalcajero" alignment="CENTER_RIGHT" layoutX="280.0" layoutY="484.0" prefHeight="43.0" prefWidth="201.0" text="0.0 €" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
